@@ -35,7 +35,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("/PengajuanLembur")]
+        [Route("PengajuanLembur")]
         public IActionResult Post(PengajuanLembur input)
         {
             var data = lemburRepository.Post(input);

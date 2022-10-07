@@ -19,7 +19,7 @@ namespace API.Controllers
 
 
         [HttpGet]
-        [Route("/CetakSlipGaji")]
+        [Route("CetakSlipGaji")]
         public IActionResult CetakSlipGaji(CetakSlipGaji cetak)
         {
             var data = gajiRepository.CetakSlipGaji(cetak);
