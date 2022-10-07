@@ -1,4 +1,5 @@
 using API.Context;
+using API.Repositories.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -65,13 +66,11 @@ namespace API
             });
 
             #region Dependency Injection
-            //services.AddScoped<CutiRepository>();
-            //services.AddScoped<GajiRepository>();
-            //services.AddScoped<LemburRepository>();
-            //services.AddScoped<PotonganRepository>();
-            //services.AddScoped<BonusRepository>();
-            //services.AddScoped<KaryawanRepository>();
-            //services.AddScoped<JabatanRepository>();
+            services.AddScoped<GajiRepository>();
+            services.AddScoped<LemburRepository>();
+            services.AddScoped<KaryawanRepository>();
+            services.AddScoped<JabatanRepository>();
+            services.AddScoped<AccountRepository>();
             #endregion
 
         }
