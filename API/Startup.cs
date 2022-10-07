@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Repositories.Data;
 
 namespace API
 {
@@ -72,6 +73,8 @@ namespace API
             //services.AddScoped<BonusRepository>();
             //services.AddScoped<KaryawanRepository>();
             //services.AddScoped<JabatanRepository>();
+
+            services.AddScoped<AccountRepository>();
             #endregion
 
         }
@@ -88,11 +91,9 @@ namespace API
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors("AllowAll");
 
-            app.UseCors(options => options.AllowAnyOrigin());
-            app.UseCors(options => options.AllowAnyMethod());
-            app.UseCors(options => options.AllowAnyHeader());
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
