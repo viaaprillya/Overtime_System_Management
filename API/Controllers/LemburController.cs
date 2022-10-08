@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Repositories.Data;
 using API.ViewModels;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowAll")]
     public class LemburController : ControllerBase
     {
         LemburRepository lemburRepository;
@@ -23,6 +25,15 @@ namespace API.Controllers
             if (data != null)
                 return Ok(new { message = "Berhasil Get Lembur", statusCode = 200, data = data });
             return BadRequest(new { message = "Gagal Get Lembur", statusCode = 400 });
+        }
+
+        [HttpGet("ID")]
+        public IActionResult Get(int idLembur)
+        {
+            var data = lemburRepository.Get(idLembur);
+            if (data != null)
+                return Ok(new { message = "Berhasil Get Lembur by ID", statusCode = 200, data = data });
+            return BadRequest(new { message = "Gagal Get Lembur by ID", statusCode = 400, data = data });
         }
 
         [HttpDelete]
