@@ -89,9 +89,7 @@ namespace API
 
             app.UseAuthorization();
 
-            app.UseCors(options => options.AllowAnyOrigin());
-            app.UseCors(options => options.AllowAnyMethod());
-            app.UseCors(options => options.AllowAnyHeader());
+            app.UseCors("AllowAll");
 
             app.UseEndpoints(endpoints =>
             {
