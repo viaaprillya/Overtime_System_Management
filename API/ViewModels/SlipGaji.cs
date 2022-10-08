@@ -4,7 +4,7 @@ namespace API.ViewModels
 {
     public class SlipGaji
     {
-        public int KaryawanID;
+        public int KaryawanID { get; set; }
         public string NamaKaryawan { get; set; }
         public int Bulan { get; set; }
         public int Tahun { get; set; }

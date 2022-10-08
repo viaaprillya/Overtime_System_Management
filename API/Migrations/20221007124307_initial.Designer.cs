@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20221007081540_initial")]
+    [Migration("20221007124307_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,29 +20,6 @@ namespace API.Migrations
                 .HasAnnotation("ProductVersion", "3.1.29")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("API.Models.Gaji", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Bulan")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KaryawanID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Tahun")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("KaryawanID");
-
-                    b.ToTable("Gaji");
-                });
 
             modelBuilder.Entity("API.Models.Jabatan", b =>
                 {
@@ -171,15 +148,6 @@ namespace API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserRole");
-                });
-
-            modelBuilder.Entity("API.Models.Gaji", b =>
-                {
-                    b.HasOne("API.Models.Karyawan", "Karyawan")
-                        .WithMany()
-                        .HasForeignKey("KaryawanID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("API.Models.Karyawan", b =>

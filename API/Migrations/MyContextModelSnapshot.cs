@@ -19,29 +19,6 @@ namespace API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("API.Models.Gaji", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Bulan")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KaryawanID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Tahun")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("KaryawanID");
-
-                    b.ToTable("Gaji");
-                });
-
             modelBuilder.Entity("API.Models.Jabatan", b =>
                 {
                     b.Property<int>("ID")
@@ -169,15 +146,6 @@ namespace API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserRole");
-                });
-
-            modelBuilder.Entity("API.Models.Gaji", b =>
-                {
-                    b.HasOne("API.Models.Karyawan", "Karyawan")
-                        .WithMany()
-                        .HasForeignKey("KaryawanID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("API.Models.Karyawan", b =>

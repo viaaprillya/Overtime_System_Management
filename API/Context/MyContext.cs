@@ -20,7 +20,6 @@ namespace API.Context
         public DbSet<Karyawan> Karyawan { get; set; }
         public DbSet<Jabatan> Jabatan { get; set; }
         public DbSet<Lembur> Lembur { get; set; }
-        public DbSet<Gaji> Gaji { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
