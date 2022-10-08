@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
+using System.Collections.Generic;
 
 namespace API.Repositories.Data
 {
@@ -20,8 +21,7 @@ namespace API.Repositories.Data
         public SlipGaji CetakSlipGaji (CetakSlipGaji cetakSlipGaji)
         {
             SlipGaji slipGaji = new SlipGaji();
-            var data = myContext.Gaji.FirstOrDefault(x =>
-                    x.KaryawanID.Equals(cetakSlipGaji.KaryawanID)&& x.Bulan==cetakSlipGaji.Bulan && x.Tahun == cetakSlipGaji.Tahun);
+
             var karyawan = myContext.Karyawan.Find(cetakSlipGaji.KaryawanID);
             var dataLembur = myContext.Lembur
                     .Include(x => x.Karyawan)
@@ -45,14 +45,11 @@ namespace API.Repositories.Data
             /* Upah Lembur tiap Jam = 0,5% dari Gaji */
             double totalLembur = (double)lembur* (0.005 * (double)gaji);
 
-            if (data==null) {
-                Post(cetakSlipGaji);
-            }
-            var slip = Get(cetakSlipGaji);
-            slipGaji.KaryawanID = slip.KaryawanID;
+            slipGaji.KaryawanID = cetakSlipGaji.KaryawanID;
             slipGaji.NamaKaryawan = karyawan.NamaLengkap;
-            slipGaji.Tahun = slip.Tahun;
-            slipGaji.Bulan = slip.Bulan;
+            slipGaji.Tahun = cetakSlipGaji.Tahun;
+            slipGaji.Bulan = cetakSlipGaji.Bulan;
+            slipGaji.TotalBonusLembur = totalLembur;
             slipGaji.GajiPokok = gaji;
             slipGaji.Tunjangan = tunjangan;
             double totalGaji = gaji + tunjangan + totalLembur;
@@ -60,24 +57,35 @@ namespace API.Repositories.Data
             return slipGaji;
         }
 
-        public Gaji Get(CetakSlipGaji cetakSlipGaji)
+        public List<SlipGaji> Get()
         {
-            var data = myContext.Gaji.FirstOrDefault(x =>
-                    x.KaryawanID.Equals(cetakSlipGaji.KaryawanID) && x.Bulan == cetakSlipGaji.Bulan && x.Tahun == cetakSlipGaji.Tahun);
-            return data;
+            var data = myContext.Lembur
+                    .Include(x => x.Karyawan)
+                    .Include(x => x.Karyawan.Jabatan)
+                    .GroupBy(x => new { x.KaryawanID, x.Tanggal.Month, x.Tanggal.Year})
+                    .Select(x => 
+                    new { 
+                        karyawanID = x.Key.KaryawanID,
+                        bulan = x.Key.Month,
+                        tahun = x.Key.Year,
+                    }).ToList();
 
+            List<SlipGaji> listSlip = new List<SlipGaji>();
+            foreach (var d in data)
+            {
+                CetakSlipGaji cetakSlipGaji = new CetakSlipGaji();
+                cetakSlipGaji.KaryawanID = d.karyawanID;
+                cetakSlipGaji.Tahun = d.tahun;
+                cetakSlipGaji.Bulan = d.bulan;
+
+                SlipGaji slip = new SlipGaji();
+                slip = CetakSlipGaji(cetakSlipGaji);
+                listSlip.Add(slip);
+            }
+
+
+            return listSlip;
         }
 
-
-        public int Post(CetakSlipGaji cetakSlipGaji)
-        {
-            Gaji gaji = new Gaji();
-            gaji.KaryawanID = cetakSlipGaji.KaryawanID;
-            gaji.Bulan = cetakSlipGaji.Bulan;
-            gaji.Tahun = cetakSlipGaji .Tahun;
-            myContext.Gaji.Add(gaji);
-            var result = myContext.SaveChanges();
-            return result;
-        }
     }
 }

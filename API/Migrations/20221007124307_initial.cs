@@ -59,27 +59,6 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Gaji",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Bulan = table.Column<int>(nullable: false),
-                    Tahun = table.Column<int>(nullable: false),
-                    KaryawanID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Gaji", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Gaji_Karyawan_KaryawanID",
-                        column: x => x.KaryawanID,
-                        principalTable: "Karyawan",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Lembur",
                 columns: table => new
                 {
@@ -147,11 +126,6 @@ namespace API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Gaji_KaryawanID",
-                table: "Gaji",
-                column: "KaryawanID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Karyawan_JabatanID",
                 table: "Karyawan",
                 column: "JabatanID");
@@ -174,9 +148,6 @@ namespace API.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Gaji");
-
             migrationBuilder.DropTable(
                 name: "Lembur");
 
