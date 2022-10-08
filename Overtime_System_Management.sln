@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Overtime_System_Management", "Overtime_System_Management\Overtime_System_Management.csproj", "{3BF9F9E9-C5F5-4400-8CC5-1C211E40DFAB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "..\Overtime_System_Management-MVC\API\API.csproj", "{03B3BE0F-80DD-44E9-BB21-777477B2880D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{6A0351C0-2AE2-419E-83E1-E3843633E504}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{3BF9F9E9-C5F5-4400-8CC5-1C211E40DFAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BF9F9E9-C5F5-4400-8CC5-1C211E40DFAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BF9F9E9-C5F5-4400-8CC5-1C211E40DFAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03B3BE0F-80DD-44E9-BB21-777477B2880D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03B3BE0F-80DD-44E9-BB21-777477B2880D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03B3BE0F-80DD-44E9-BB21-777477B2880D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03B3BE0F-80DD-44E9-BB21-777477B2880D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A0351C0-2AE2-419E-83E1-E3843633E504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A0351C0-2AE2-419E-83E1-E3843633E504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A0351C0-2AE2-419E-83E1-E3843633E504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A0351C0-2AE2-419E-83E1-E3843633E504}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
