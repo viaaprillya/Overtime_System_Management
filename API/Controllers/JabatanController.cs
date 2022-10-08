@@ -24,7 +24,7 @@ namespace API.Controllers
             var data = jabatanRepository.Get();
             if (data != null)
                 return Ok(new { message = "Berhasil Get Jabatan", statusCode = 200, data = data });
-            return BadRequest(new { message = "Gagal Get Jabatan", statusCode = 400, data = data });
+            return BadRequest(new { message = "Gagal Get Jabatan", statusCode = 400 });
         }
 
         [HttpDelete]

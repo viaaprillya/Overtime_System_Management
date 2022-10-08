@@ -48,7 +48,6 @@ namespace API.Repositories.Data
             return null;
         }
 
-        [HttpPost]
         public int RegistrasiKaryawan (RegistrasiKaryawan register)
         {
             var password = register.NomerTelepon; //password default menggunakan nomer telepon

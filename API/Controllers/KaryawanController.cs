@@ -24,7 +24,7 @@ namespace API.Controllers
             var data = karyawanRepository.Get();
             if (data != null)
                 return Ok(new { message = "Berhasil Get Karyawan", statusCode = 200, data = data });
-            return BadRequest(new { message = "Gagal Get Karyawan", statusCode = 400, data = data });
+            return BadRequest(new { message = "Gagal Get Karyawan", statusCode = 400 });
         }
 
         [HttpGet("id")]
@@ -33,7 +33,7 @@ namespace API.Controllers
             var data = karyawanRepository.Get(id);
             if (data != null)
                 return Ok(new { message = "Berhasil Get Karyawan", statusCode = 200, data = data });
-            return BadRequest(new { message = "Gagal Get Karyawan", statusCode = 400, data = data });
+            return BadRequest(new { message = "Gagal Get Karyawan", statusCode = 400 });
         }
 
         [HttpDelete("id")]

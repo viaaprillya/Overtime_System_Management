@@ -18,14 +18,14 @@ namespace API.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("CetakSlipGaji")]
         public IActionResult CetakSlipGaji(CetakSlipGaji cetak)
         {
             var data = gajiRepository.CetakSlipGaji(cetak);
             if (data != null)
                 return Ok(new { message = "Berhasil Cetak Slip Gaji", statusCode = 200, data = data });
-            return BadRequest(new { message = "Gagal Cetak Slip", statusCode = 400, data = data });
+            return BadRequest(new { message = "Gagal Cetak Slip", statusCode = 400 });
         }
 
         [HttpGet]
@@ -35,7 +35,7 @@ namespace API.Controllers
             var data = gajiRepository.Get();
             if (data != null)
                 return Ok(new { message = "Berhasil Cetak History Gaji", statusCode = 200, data = data });
-            return BadRequest(new { message = "Gagal Cetak History Gaji", statusCode = 400, data = data });
+            return BadRequest(new { message = "Gagal Cetak History Gaji", statusCode = 400 });
         }
     }
 }

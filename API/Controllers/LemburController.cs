@@ -22,7 +22,7 @@ namespace API.Controllers
             var data = lemburRepository.Get();
             if (data != null)
                 return Ok(new { message = "Berhasil Get Lembur", statusCode = 200, data = data });
-            return BadRequest(new { message = "Gagal Get Lembur", statusCode = 400, data = data });
+            return BadRequest(new { message = "Gagal Get Lembur", statusCode = 400 });
         }
 
         [HttpDelete]
