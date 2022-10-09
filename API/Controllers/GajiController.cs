@@ -20,7 +20,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("CetakSlipGaji")]
-        public IActionResult CetakSlipGaji(CetakSlipGaji cetak)
+        public IActionResult CetakSlipGaji([FromQuery] CetakSlipGaji cetak)
         {
             var data = gajiRepository.CetakSlipGaji(cetak);
             if (data != null)
@@ -36,6 +36,16 @@ namespace API.Controllers
             if (data != null)
                 return Ok(new { message = "Berhasil Cetak History Gaji", statusCode = 200, data = data });
             return BadRequest(new { message = "Gagal Cetak History Gaji", statusCode = 400, data = data });
+        }
+
+        [HttpGet]
+        [Route("HistoryGajiKaryawan")]
+        public IActionResult HistoryGajiKaryawan([FromQuery] int idKaryawan)
+        {
+            var data = gajiRepository.Get(idKaryawan);
+            if (data != null)
+                return Ok(new { message = "Berhasil Cetak History Gaji Karyawan", statusCode = 200, data = data });
+            return BadRequest(new { message = "Gagal Cetak History Gaji Karyawan", statusCode = 400, data = data });
         }
     }
 }
