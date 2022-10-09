@@ -18,7 +18,10 @@ Silahkan download template [SB Admin 2](https://startbootstrap.com/theme/sb-admi
    
 #### NB 
 1. Skema database  
-![image](https://user-images.githubusercontent.com/37134829/194742464-80d31b47-9127-4f3b-88e3-e084613ddd90.png)
+![image](https://user-images.githubusercontent.com/37134829/194742464-80d31b47-9127-4f3b-88e3-e084613ddd90.png)  
+
+![image](https://user-images.githubusercontent.com/37134829/194742669-002da5d6-0336-40de-8557-856dc18dbc2e.png)
+
 
 2. Jika belum membuat user sama sekali
   - Sebaiknya gunakan API registrasi agar user secara default dapat login menggunakan password yang nilainya sama dengan nomor telepon
