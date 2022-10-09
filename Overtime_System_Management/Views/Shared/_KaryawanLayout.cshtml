@@ -37,7 +37,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Ryandrie Satria</div>
+                <div class="sidebar-brand-text mx-3">.NET Kelompok 1</div>
             </a>
 
             <!-- Divider -->
@@ -60,7 +60,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed"
-                   href=""
+                   href="~/karyawan/index"
                    aria-expanded="true"
                    aria-controls="collapseTwo">
                     <!-- <i class="fas fa-fw fa-cog"></i> -->
@@ -71,7 +71,7 @@
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed"
-                   href=""
+                   href="~/karyawan/historygaji"
                    aria-expanded="true"
                    aria-controls="collapseUtilities">
                     <!-- <i class="fas fa-fw fa-wrench"></i> -->
@@ -117,21 +117,20 @@
                                      src="~/sbadmin/img/undraw_profile.svg" />
                             </a>
                             <!-- Dropdown - User Information -->
-                             <div
-                              class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                              aria-labelledby="userDropdown"
-                            >
-                              <a
-                                class="dropdown-item"
-                                href="/account/logout/"
-                                @*data-toggle="modal"
-                                data-target="#logoutModal"*@
-                              >
-                                <i
-                                  class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
-                                ></i>
-                                Logout
-                              </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="~/account/changepassword">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Change Password
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item"
+                                   href="/account/logout/"
+                                   @*data-toggle="modal"
+                                data-target="#logoutModal"*@>
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
                             </div> 
                         </li>
                     </ul>

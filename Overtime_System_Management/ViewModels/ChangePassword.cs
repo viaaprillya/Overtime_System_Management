@@ -1,4 +1,4 @@
-﻿namespace API.ViewModel
+﻿namespace Overtime_System_Management.ViewModel
 {
     public class ChangePassword
     {

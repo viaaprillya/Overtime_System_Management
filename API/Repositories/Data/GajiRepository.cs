@@ -70,7 +70,8 @@ namespace API.Repositories.Data
                     .Where(x =>
                     x.Karyawan.ID.Equals(cetakSlipGaji.KaryawanID) &&
                     x.Tanggal.Month == cetakSlipGaji.Bulan &&
-                    x.Tanggal.Year == cetakSlipGaji.Tahun
+                    x.Tanggal.Year == cetakSlipGaji.Tahun &&
+                    x.Approval == "Approved"
                     ).FirstOrDefault();
 
             if (gaji != null)

@@ -143,7 +143,7 @@
                                            value="" />
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label">Jabatan</label>
+                                    <label class="control-label">Jabatan ID</label>
                                     <input class="form-control"
                                            id="registrasiJabatan"
                                            value="" />
@@ -152,7 +152,7 @@
                                     <input type="submit"
                                            value="Submit"
                                            class="btn btn-primary col-3"
-                                           onclick=""
+                                           onclick="Registrasi()"
                                            data-dismiss="modal" />
                                 </div>
                             </form>
@@ -203,9 +203,9 @@
                                 <div class="row form-group justify-content-md-center">
                                     <input value="Submit"
                                            class="btn btn-primary col-3"
-                                           onclick=""
+                                           onclick="CetakSlipGaji()"
                                            data-dismiss="modal"
-                                           data-toggle="modal"
+                                           @*data-toggle="modal"*@
                                            data-target="#slipGajiModal" />
                                 </div>
                             </form>
@@ -238,42 +238,48 @@
                 <div class="modal-body">
                     <div class="row mb-2 mt-2">
                         <div class="col-4">Id</div>
-                        <div class="col-8 detailValue" id="detail-id">1</div>
+                        <div class="col-8 detailValue" id="detail-id"></div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-4">Nama</div>
                         <div class="col-8 detailValue" id="detail-nama">
-                            Bambang Sakti
+
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-4">Bulan</div>
                         <div class="col-8 detailValue" id="detail-bulan">
-                            Juli
+
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-4">Tahun</div>
                         <div class="col-8 detailValue" id="detail-tahun">
-                            2022
+
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-4">Gaji Pokok</div>
                         <div class="col-8 detailValue" id="detail-gaji">
-                            Rp. 6500000
+
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4">Tunjangan</div>
+                        <div class="col-8 detailValue" id="detail-tunjangan">
+
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-4">Bonus Lembur</div>
                         <div class="col-8 detailValue" id="detail-lembur">
-                            Rp. 120000
+
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-4">Total Gaji</div>
                         <div class="col-8 detailValue" id="detail-totalGaji">
-                            Rp. 6620000
+
                         </div>
                     </div>
                 </div>
@@ -303,14 +309,15 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
+                            <input type="hidden" value="" id="lemburApprovalId" />
                             <div class="row form-group justify-content-md-center">
                                 <input value="No"
                                        class="btn btn-danger col-3"
-                                       onclick=""
+                                       onclick="Approve('no')"
                                        data-dismiss="modal" />
                                 <input value="Yes"
                                        class="btn btn-success col-3 offset-1"
-                                       onclick=""
+                                       onclick="Approve('yes')"
                                        data-dismiss="modal" />
                             </div>
                         </div>
