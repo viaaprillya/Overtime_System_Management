@@ -36,6 +36,15 @@ namespace API.Controllers
             return BadRequest(new { message = "Gagal Get Lembur by ID", statusCode = 400, data = data });
         }
 
+        [HttpGet("KaryawanID")]
+        public IActionResult GetByKaryawanId(int karyawanId)
+        {
+            var data = lemburRepository.GetByKaryawanId(karyawanId);
+            if (data != null)
+                return Ok(new { message = "Berhasil Get Lembur by KaryawanID", statusCode = 200, data = data });
+            return BadRequest(new { message = "Gagal Get Lembur by KaryawanID", statusCode = 400, data = data });
+        }
+
         [HttpDelete]
         public IActionResult Delete(int ID)
         {

@@ -8,6 +8,7 @@ namespace API.Repositories.Interface
     {
         List<Lembur> Get();
         Lembur Get(int id);
+        List<Lembur> GetByKaryawanId(int karyawanid);
         int Post(PengajuanLembur pengajuanLembur);
         int Put(Lembur lembur);
         int Delete(int id);

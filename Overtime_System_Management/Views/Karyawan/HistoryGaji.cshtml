@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_KaryawanLayout";
+}
+
+<h1 class="mb-2">History Gaji</h1>
+
+<table class="table" id="gajiTable">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Bulan</th>
+            <th>Tahun</th>
+            <th>Gaji Pokok</th>
+            <th>Tunjangan</th>
+            <th>Bonus Lembur</th>
+            <th>Total Gaji</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
+
+<input type="hidden" value="@ViewBag.Id" id="UserId" />
+@section Scripts {
+    <script src="~/js/karyawan/historyGaji.js"></script>
+}

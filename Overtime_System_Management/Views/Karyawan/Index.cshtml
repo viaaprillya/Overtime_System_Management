@@ -12,9 +12,9 @@
             data-target="#requestFormModal">
         Request Overtime
     </button>
-    <button type="button" class="btn btn-primary">
+    <a href="~/karyawan/historygaji" type="button" class="btn btn-primary">
         History Gaji
-    </button>
+    </a>
 </p>
 <table class="table" id="lemburTable">
     <thead>
@@ -90,6 +90,7 @@
     </div>
 </div>
 
+<input type="hidden" value="@ViewBag.Id" id="UserId" />
 @section Scripts {
-    <script src="~/js/karyawan/index.js"></script>
+    <script src="~/js/karyawan/index.js" ></script>
 }

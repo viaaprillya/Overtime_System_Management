@@ -1,8 +1,12 @@
-﻿$(document).ready(function () {
+﻿const Id = document.getElementById('UserId').value;
+
+$(document).ready(function () {
+
+    
     var t = $('#lemburTable').DataTable({
 
         ajax: {
-            url: "https://localhost:44372/api/Lembur",
+            url: `https://localhost:44372/api/Lembur/KaryawanID?karyawanId=${Id}`,
             dataSrc: "data",
             dataType: "JSON"
         },
@@ -41,7 +45,7 @@
                 render: function (data, type, meta) {
                     let approvalBtn;
                     if (data == "Processing") {
-                        approvalBtn = `<button class="btn btn-warning btn-sm">Processing</button>`
+                        approvalBtn = `<button class="btn btn-warning btn-sm" >Processing</button>`
                     }
                     else if (data == "Approved") {
                         approvalBtn = `<button class="btn btn-success btn-sm">Approved</button>`

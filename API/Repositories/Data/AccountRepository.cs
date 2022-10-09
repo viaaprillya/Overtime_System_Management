@@ -82,14 +82,16 @@ namespace API.Repositories.Data
             var data = myContext.User
                 .FirstOrDefault(x =>
                     x.Karyawan.Email.Equals(changePassword.Email));
-            if (Hashing.ValidatePassword(changePassword.OldPassword, data.Password))
+
+            if (data != null && Hashing.ValidatePassword(changePassword.OldPassword, data.Password))
             {
                 string newPasswordHash = Hashing.HashPassword(changePassword.NewPassword);
-                data.Password = newPasswordHash;
+                data.Password = newPasswordHash; myContext.User.Update(data);
+                var result = myContext.SaveChanges();
+                return result;
             }
-            myContext.User.Update(data);
-            var result = myContext.SaveChanges();
-            return result;
+            return 0;
+            
         }
 
     }
