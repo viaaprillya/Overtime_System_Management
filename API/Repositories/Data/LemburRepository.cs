@@ -34,6 +34,11 @@ namespace API.Repositories.Data
             return data;
         }
 
+        public List<Lembur> GetByKaryawanId(int karyawanId)
+        {
+            var data = myContext.Lembur.Where(x => x.KaryawanID == karyawanId).ToList();
+            return data;
+        }
         public int Post(PengajuanLembur pengajuanLembur)
         {
             string approval = "Processing";

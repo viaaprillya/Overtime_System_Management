@@ -1,0 +1,333 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+
+@section Styles {
+    <style>
+       
+    </style>
+}
+<h1>Index</h1>
+
+<p>
+    <button type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#registrasiFormModal">
+        Registrasi Karyawan
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#cetakFormModal">
+        Cetak Slip Gaji
+    </button>
+</p>
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active"
+                onclick="changeTab('1')"
+                id="nav-approving-tab"
+                data-toggle="tab"
+                data-target="#nav-approving"
+                type="button"
+                role="tab"
+                aria-controls="nav-approving"
+                aria-selected="true">
+            Butuh Approval
+        </button>
+        <button class="nav-link"
+                onclick="changeTab('2')"
+                id="nav-approved-tab"
+                data-toggle="tab"
+                data-target="#nav-approved"
+                type="button"
+                role="tab"
+                aria-controls="nav-approved"
+                aria-selected="false">
+            Sudah Approval
+        </button>
+    </div>
+</nav>
+<div class="tab-content mt-3" id="nav-tabContent">
+    <div class="tab-pane fade show active"
+         id="nav-approving"
+         role="tabpanel"
+         aria-labelledby="nav-approving-tab">
+        <table class="table" id="lemburTable1">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Lembur ID</th>
+                    <th>Tanggal</th>
+                    <th>Waktu (Jam)</th>
+                    <th>Keterangan</th>
+                    <th>Approval</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+
+            </tbody>
+        </table>
+    </div>
+    <div class="tab-pane fade"
+         id="nav-approved"
+         role="tabpanel"
+         aria-labelledby="nav-approved-tab">
+        <table class="table" id="lemburTable2">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Lembur ID</th>
+                    <th>Tanggal</th>
+                    <th>Waktu (Jam)</th>
+                    <th>Keterangan</th>
+                    <th>Approval</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <!-- Modal Request-->
+    <div class="modal fade"
+         id="registrasiFormModal"
+         tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Data Karyawan Baru
+                    </h5>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form>
+                                <div asp-validation-summary="ModelOnly"
+                                     class="text-danger"></div>
+                                <div class="form-group">
+                                    <label class="control-label">Nama</label>
+                                    <input class="form-control" id="registrasiNama" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">No. Rekening</label>
+                                    <input class="form-control"
+                                           id="registrasiNoRekening"
+                                           value="" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">No. Telepon</label>
+                                    <input class="form-control"
+                                           id="registrasiNoTelepon"
+                                           value="" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Email</label>
+                                    <input class="form-control"
+                                           id="registrasiEmail"
+                                           value="" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Jabatan ID</label>
+                                    <input class="form-control"
+                                           id="registrasiJabatan"
+                                           value="" />
+                                </div>
+                                <div class="row form-group justify-content-md-center">
+                                    <input type="submit"
+                                           value="Submit"
+                                           class="btn btn-primary col-3"
+                                           onclick="Registrasi()"
+                                           data-dismiss="modal" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form Cetak Slip gaji-->
+    <div class="modal fade"
+         id="cetakFormModal"
+         tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Cetak Slip Gaji
+                    </h5>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form>
+                                <div asp-validation-summary="ModelOnly"
+                                     class="text-danger"></div>
+                                <div class="form-group">
+                                    <label class="control-label">ID Karyawan</label>
+                                    <input class="form-control" id="cetakId" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Bulan/Tahun</label>
+                                    <input type="month"
+                                           class="form-control"
+                                           id="cetakBulanTahun"
+                                           value="" />
+                                </div>
+
+                                <div class="row form-group justify-content-md-center">
+                                    <input value="Submit"
+                                           class="btn btn-primary col-3"
+                                           onclick="CetakSlipGaji()"
+                                           data-dismiss="modal"
+                                           @*data-toggle="modal"*@
+                                           data-target="#slipGajiModal" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form Hasil Slip gaji-->
+    <div class="modal fade"
+         id="slipGajiModal"
+         tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Slip Gaji
+                    </h5>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2 mt-2">
+                        <div class="col-4">Id</div>
+                        <div class="col-8 detailValue" id="detail-id"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4">Nama</div>
+                        <div class="col-8 detailValue" id="detail-nama">
+
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4">Bulan</div>
+                        <div class="col-8 detailValue" id="detail-bulan">
+
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4">Tahun</div>
+                        <div class="col-8 detailValue" id="detail-tahun">
+
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4">Gaji Pokok</div>
+                        <div class="col-8 detailValue" id="detail-gaji">
+
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4">Tunjangan</div>
+                        <div class="col-8 detailValue" id="detail-tunjangan">
+
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4">Bonus Lembur</div>
+                        <div class="col-8 detailValue" id="detail-lembur">
+
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4">Total Gaji</div>
+                        <div class="col-8 detailValue" id="detail-totalGaji">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Approval-->
+    <div class="modal fade"
+         id="approvalModal"
+         tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Approve this request?
+                    </h5>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" value="" id="lemburApprovalId" />
+                            <div class="row form-group justify-content-md-center">
+                                <input value="No"
+                                       class="btn btn-danger col-3"
+                                       onclick="Approve('no')"
+                                       data-dismiss="modal" />
+                                <input value="Yes"
+                                       class="btn btn-success col-3 offset-1"
+                                       onclick="Approve('yes')"
+                                       data-dismiss="modal" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin/index.js"></script>
+}
