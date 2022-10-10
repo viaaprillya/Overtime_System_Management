@@ -1,6 +1,7 @@
 ﻿using API.Repositories.Data;
 using API.ViewModel;
 using API.ViewModels;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;
 
@@ -8,6 +9,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowAll")]
     public class AccountController : ControllerBase
     {
         /*
@@ -46,7 +48,7 @@ namespace API.Controllers
             return BadRequest(new { statusCode = 400, message = "Registration Failed" });
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("ChangePassword")]
         public IActionResult ChangePassword(ChangePassword changePassword)
         {

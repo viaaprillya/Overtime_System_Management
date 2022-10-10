@@ -1,9 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Karyawan";
     Layout = "_KaryawanLayout";
 }
 
-<h1>Index</h1>
+<h1>Pengajuan Lembur</h1>
 
 <p>
     <button type="button"
@@ -12,85 +12,156 @@
             data-target="#requestFormModal">
         Request Overtime
     </button>
-    <a href="~/karyawan/historygaji" type="button" class="btn btn-primary">
-        History Gaji
-    </a>
+    @*<a href="~/Karyawan/HistoryGaji" type="button" class="btn btn-primary">
+            History Gaji
+        </a>*@
 </p>
-<table class="table" id="lemburTable">
-    <thead>
-        <tr>
-            <th>No.</th>
-            <th>Lembur ID</th>
-            <th>Tanggal</th>
-            <th>Waktu (Jam)</th>
-            <th>Keterangan</th>
-            <th>Approval</th>
-        </tr>
-    </thead>
-    <tbody>
-        
-    </tbody>
-</table>
 
-<!-- Modal Request-->
-<div class="modal fade"
-     id="requestFormModal"
-     tabindex="-1"
-     aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Form Request
-                </h5>
-                <button type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form>
-                            <div asp-validation-summary="ModelOnly"
-                                 class="text-danger"></div>
-                            <div class="form-group">
-                                <label class="control-label">Tanggal</label>
-                                <input type="date"
-                                       class="form-control"
-                                       id="lemburTanggal" />
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active"
+                onclick="changeTab('1')"
+                id="nav-approving-tab"
+                data-toggle="tab"
+                data-target="#nav-approving"
+                type="button"
+                role="tab"
+                aria-controls="nav-approving"
+                aria-selected="true">
+            Pengajuan Lembur
+        </button>
+        <button class="nav-link"
+                onclick="changeTab('2')"
+                id="nav-approved-tab"
+                data-toggle="tab"
+                data-target="#nav-approved"
+                type="button"
+                role="tab"
+                aria-controls="nav-approved"
+                aria-selected="false">
+            History Gaji
+        </button>
+    </div>
+</nav>
+
+<div class="card shadow mb-4">
+    @*<div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    </div>*@
+    <div class="card-body">
+        <div class="table-responsive">
+            <div class="tab-content mt-3" id="nav-tabContent">
+                <div class="tab-pane fade show active"
+                        id="nav-approving"
+                        role="tabpanel"
+                        aria-labelledby="nav-approving-tab">
+                    <table class="table table-bordered" id="karyawanTable1" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Lembur ID</th>
+                                <th>Tanggal</th>
+                                <th>Waktu (Jam)</th>
+                                <th>Keterangan</th>
+                                <th>Approval</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade"
+                        id="nav-approved"
+                        role="tabpanel"
+                        aria-labelledby="nav-approved-tab">
+                    <table class="table table-bordered" id="karyawanTable2" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Bulan</th>
+                                <th>Tahun</th>
+                                <th>Gaji Pokok</th>
+                                <th>Tunjangan</th>
+                                <th>Bonus Lembur</th>
+                                <th>Total Gaji</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+                <!-- Modal Request-->
+                <div class="modal fade"
+                        id="requestFormModal"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">
+                                    Form Request
+                                </h5>
+                                <button type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Durasi Lembur (jam)</label>
-                                <input class="form-control"
-                                       id="lemburDurasi"
-                                       value="" />
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form onsubmit="Insert(event, @ViewBag.Id)" method="post">
+                                            <div asp-validation-summary="ModelOnly"
+                                                    class="text-danger"></div>
+                                            <div class="form-group">
+                                                <label class="control-label">Tanggal</label>
+                                                <input type="date"
+                                                       class="form-control"
+                                                       id="lemburTanggal" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Durasi Lembur</label>
+                                                <div class="input-group mb-2">
+                                                    <input class="form-control"
+                                                           id="lemburDurasi"
+                                                           value="" oninput="this.value = this.value
+                                                                .replace(/[^0-9.]/g, '')
+                                                                .replace(/(\..*?)\..*/g, '$1');" required />
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Jam</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Keterangan</label>
+                                                <textarea class="form-control"
+                                                            id="lemburKeterangan"
+                                                            value="" rows="5" cols="50" required></textarea>
+                                            </div>
+                                            <div class="row form-group justify-content-md-center">
+                                                <input type="submit"
+                                                        value="Request"
+                                                        class="btn btn-primary col-3" />
+                                                        @*onclick="Insert(event, @ViewBag.Id)" />*@
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Keterangan</label>
-                                <input class="form-control"
-                                       id="lemburKeterangan"
-                                       value="" />
-                            </div>
-                            <div class="row form-group justify-content-md-center">
-                                <input type="submit"
-                                       value="Request"
-                                       class="btn btn-primary col-3"
-                                       onclick="Insert(event, @ViewBag.Id)"
-                                       data-dismiss="modal" />
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <input type="hidden" value="@ViewBag.Id" id="UserId" />
 @section Scripts {
-    <script src="~/js/karyawan/index.js" ></script>
+    <script src="~/js/karyawan/index.js"></script>
+    <script src="~/js/karyawan/historyGaji.js"></script>
 }

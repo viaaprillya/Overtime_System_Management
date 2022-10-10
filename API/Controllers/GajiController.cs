@@ -2,12 +2,14 @@
 using API.Repositories.Data;
 using API.Repositories.Interface;
 using API.ViewModels;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowAll")]
     public class GajiController : ControllerBase
     {
         GajiRepository gajiRepository;
@@ -18,7 +20,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         [Route("CetakSlipGaji")]
         public IActionResult CetakSlipGaji([FromQuery] CetakSlipGaji cetak)
         {
