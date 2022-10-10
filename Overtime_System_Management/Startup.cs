@@ -24,10 +24,10 @@ namespace Overtime_System_Management
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(5);
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });

@@ -37,7 +37,8 @@ namespace Overtime_System_Management.Controllers
         public async Task<IActionResult> Login(Login login)
         {
 
-            string address = "https://localhost:44372/api/Account/login";
+            //string address = "https://localhost:44372/api/Account/login";
+            string address = "https://localhost:17828/api/Account/login";
             HttpClient = new HttpClient
             {
                 BaseAddress = new Uri(address)
@@ -51,6 +52,7 @@ namespace Overtime_System_Management.Controllers
                 HttpContext.Session.SetString("Role", data.data.Role);
                 HttpContext.Session.SetString("FullName", data.data.FullName);
                 HttpContext.Session.SetString("Id", data.data.Id.ToString());
+                HttpContext.Session.SetString("Email", data.data.Email);
                 if (data.data.Role == "User")
                 {
                     return RedirectToAction("Index", "Karyawan");
@@ -76,12 +78,15 @@ namespace Overtime_System_Management.Controllers
             var role = HttpContext.Session.GetString("Role");
             if (role != null)
             {
-                if (role != "User")
-                {
-                    return View("~/Views/Shared/Forbidden.cshtml");
-                }
+                //if (role != "User")
+                //{
+                //    return View("~/Views/Shared/Forbidden.cshtml");
+                //}
                 var fullName = HttpContext.Session.GetString("FullName");
+                var email = HttpContext.Session.GetString("Email");
                 ViewBag.FullName = fullName;
+                ViewBag.Email = email;
+                ViewBag.Role = role;
                 return View();
             }
             TempData["Unauthorized"] = "true";
@@ -89,10 +94,11 @@ namespace Overtime_System_Management.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(ChangePassword changePassword)
+        public IActionResult ChangePassword(ChangePassword changePassword)
         {
 
-            string address = "https://localhost:44372/api/Account/ChangePassword";
+            //string address = "https://localhost:44372/api/Account/ChangePassword";
+            string address = "https://localhost:17828/api/Account/ChangePassword";
             HttpClient = new HttpClient
             {
                 BaseAddress = new Uri(address)
@@ -100,6 +106,10 @@ namespace Overtime_System_Management.Controllers
 
             StringContent content = new StringContent(JsonConvert.SerializeObject(changePassword), Encoding.UTF8, "application/json");
             var result = HttpClient.PostAsync(address, content).Result;
+            var fullName = HttpContext.Session.GetString("FullName");
+            var email = HttpContext.Session.GetString("Email");
+            ViewBag.FullName = fullName;
+            ViewBag.Email = email;
             if (result.IsSuccessStatusCode)
             {
                 ViewBag.Success = "true";
