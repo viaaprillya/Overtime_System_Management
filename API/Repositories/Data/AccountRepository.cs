@@ -48,7 +48,6 @@ namespace API.Repositories.Data
             return null;
         }
 
-        [HttpPost]
         public int RegistrasiKaryawan (RegistrasiKaryawan register)
         {
             var password = register.NomerTelepon; //password default menggunakan nomer telepon
@@ -83,6 +82,7 @@ namespace API.Repositories.Data
             var data = myContext.User
                 .FirstOrDefault(x =>
                     x.Karyawan.Email.Equals(changePassword.Email));
+
             if (data != null && Hashing.ValidatePassword(changePassword.OldPassword, data.Password))
             {
                 string newPasswordHash = Hashing.HashPassword(changePassword.NewPassword);

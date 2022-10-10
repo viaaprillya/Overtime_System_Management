@@ -2,6 +2,7 @@
 using API.Models;
 using API.Repositories.Interface;
 using API.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,7 +25,7 @@ namespace API.Repositories.Data
 
         public List<Lembur> Get()
         {
-            var data = myContext.Lembur.ToList();
+            var data = myContext.Lembur.Include(x => x.Karyawan).ToList();
             return data;
         }
 

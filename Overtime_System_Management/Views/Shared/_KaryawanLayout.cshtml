@@ -33,11 +33,12 @@
             id="accordionSidebar">
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center"
-               href="index.html">
+               href="Index">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">.NET Kelompok 1</div>
+                @*<div class="sidebar-brand-text mx-3">.NET Kelompok 1</div>*@
+                <div class="sidebar-brand-text mx-3">Overtime Management System</div>
             </a>
 
             <!-- Divider -->
@@ -45,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/Karyawan/Index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -55,27 +56,30 @@
             <hr class="sidebar-divider" />
 
             <!-- Heading -->
-            <div class="sidebar-heading">Tables</div>
+            <div class="sidebar-heading">Table Tabs</div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed"
-                   href="~/karyawan/index"
+                   href="#"
+                   onclick="changeTab('1')"
                    aria-expanded="true"
-                   aria-controls="collapseTwo">
+                   aria-controls="collapseTwo"
+                   id="linkTab1">
                     <!-- <i class="fas fa-fw fa-cog"></i> -->
-                    <span>Overtime</span>
+                    <span>Pengajuan Lembur</span>
                 </a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed"
-                   href="~/karyawan/historygaji"
+                   href="#"
+                   onclick="changeTab('2')"
                    aria-expanded="true"
-                   aria-controls="collapseUtilities">
+                   aria-controls="collapseUtilities" id="linkTab2">
                     <!-- <i class="fas fa-fw fa-wrench"></i> -->
-                    <span>Salary</span>
+                    <span>History Gaji</span>
                 </a>
             </li>
 
@@ -100,7 +104,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <p class="h3">Overtime Request System</p>
+                    @*<p class="h3">Overtime Request System</p>*@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -119,7 +123,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="~/account/changepassword">
+                                <a class="dropdown-item" href="~/Account/ChangePassword">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Change Password
                                 </a>
@@ -148,7 +152,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Overtime Request System 2022</span>
+                        <span>Copyright &copy; Overtime Management System 2022</span>
                     </div>
                 </div>
             </footer>
@@ -173,11 +177,11 @@
     <script src="~/sbadmin/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="~/sbadmin/vendor/chart.js/Chart.min.js"></script>
+    <!--<script src="~/sbadmin/vendor/chart.js/Chart.min.js"></script>-->
 
     <!-- Page level custom scripts -->
-    <script src="~/sbadmin/js/demo/chart-area-demo.js"></script>
-    <script src="~/sbadmin/js/demo/chart-pie-demo.js"></script>
+    <!--<script src="~/sbadmin/js/demo/chart-area-demo.js"></script>
+    <script src="~/sbadmin/js/demo/chart-pie-demo.js"></script>-->
 
     <script type="text/javascript"
             charset="utf8"
@@ -197,5 +201,17 @@
                 $("#lemburTable").DataTable();
             });
         </script>*@
+    <script>
+        $("#linkTab1, #nav-approving-tab").on('click', function () {
+            $('#nav-approving-tab')[0].click();
+            var tabName = $('#nav-approving-tab').text();
+            $('h1').html(tabName);
+        });
+        $("#linkTab2, #nav-approved-tab").on('click', function () {
+            $('#nav-approved-tab')[0].click();
+            var tabName = $('#nav-approved-tab').text();
+            $('h1').html(tabName);
+        });
+    </script>
 </body>
 </html>

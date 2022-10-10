@@ -176,8 +176,6 @@ namespace API.Repositories.Data
                 }
             }
             return listSlip;
-
-            return listSlip;
         }
 
         public List<SlipGaji> Get(int idKaryawan)

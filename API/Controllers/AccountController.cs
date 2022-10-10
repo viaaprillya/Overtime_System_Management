@@ -1,6 +1,7 @@
 ﻿using API.Repositories.Data;
 using API.ViewModel;
 using API.ViewModels;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;
 
@@ -8,6 +9,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowAll")]
     public class AccountController : ControllerBase
     {
         /*
@@ -32,8 +34,8 @@ namespace API.Controllers
         {
             var data = accountRepository.Login(login);
             if (data != null)
-                return Ok(new { message = "berhasil login", statusCode = 200, data = data });
-            return BadRequest(new { message = "gagal login", statusCode = 400, data = data });
+                return Ok(new { message = "Login Succeeded", statusCode = 200, data = data });
+            return BadRequest(new { message = "Login Failed", statusCode = 400 });
         }
 
         [HttpPost]
@@ -42,7 +44,7 @@ namespace API.Controllers
         {
             var result = accountRepository.RegistrasiKaryawan(register);
             if (result > 0)
-                return Ok(new { statusCode = 200, message = "Registration Succeded" });
+                return Ok(new { statusCode = 200, message = "Registration Succeeded", data = result });
             return BadRequest(new { statusCode = 400, message = "Registration Failed" });
         }
 
@@ -52,7 +54,7 @@ namespace API.Controllers
         {
             var result = accountRepository.ChangePassword(changePassword);
             if (result > 0)
-                return Ok(new { statusCode = 200, message = "Change Password Succeded" });
+                return Ok(new { statusCode = 200, message = "Change Password Succeeded", data = result });
             return BadRequest(new { statusCode = 400, message = "Change Password Failed" });
         }
     }

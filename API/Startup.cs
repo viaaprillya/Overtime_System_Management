@@ -66,10 +66,12 @@ namespace API
             });
 
             #region Dependency Injection
+
             services.AddScoped<GajiRepository>();
             services.AddScoped<LemburRepository>();
             services.AddScoped<KaryawanRepository>();
             services.AddScoped<JabatanRepository>();
+
             services.AddScoped<AccountRepository>();
             #endregion
 
@@ -87,9 +89,9 @@ namespace API
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseCors("AllowAll");
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

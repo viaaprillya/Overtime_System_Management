@@ -1,13 +1,18 @@
 ﻿const Id = document.getElementById('UserId').value;
-console.log(Id);
+//console.log(Id);
+
+function changeTab(val) {
+
+}
 
 $(document).ready(function () {
     
 
-    var t = $('#gajiTable').DataTable({
+    var t = $('#karyawanTable2').DataTable({
 
         ajax: {
-            url: `https://localhost:44372/api/Gaji/HistoryGajiKaryawan?idKaryawan=${Id}`,
+            //url: `https://localhost:44372/api/Gaji/HistoryGajiKaryawan?idKaryawan=${Id}`,
+            url: `https://localhost:17828/api/Gaji/HistoryGajiKaryawan?idKaryawan=${Id}`,
             dataSrc: "data",
             dataType: "JSON"
         },
@@ -18,28 +23,47 @@ $(document).ready(function () {
                 targets: 0,
             },
         ],
-        order: [[1, 'asc']],
+        order: [[0, 'asc']],
         columns: [
             {
-                data: "bulan"
+                data: "",
+                render: function (data, type, full, meta) {
+                    return meta.row + 1;
+                }
             },
             {
-                data: "bulan"
+                data: "bulan",
+                render: function (data) {
+                    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    return months[data - 1];
+                }
             },
             {
                 data: "tahun",
             },
             {
-                data: "gajiPokok"
+                data: "gajiPokok",
+                render: function (data) {
+                    return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(data);
+                }
             },
             {
-                data: "tunjangan"
+                data: "tunjangan",
+                render: function (data) {
+                    return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(data);
+                }
             },
             {
                 data: 'totalBonusLembur',
+                render: function (data) {
+                    return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(data);
+                }
             },
             {
                 data: 'totalGaji',
+                render: function (data) {
+                    return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(data);
+                }
             }
         ]
     });
@@ -51,4 +75,6 @@ $(document).ready(function () {
             this.data(i++);
         });
     }).draw();
+
+    //$("#karyawanTable2")[0].style.width = '100%';
 });
