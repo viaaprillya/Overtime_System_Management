@@ -70,7 +70,7 @@ namespace Overtime_System_Management.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("LoginPage");
+            return RedirectToAction("LandingPage", "Home");
         }
 
         public IActionResult ChangePassword()
