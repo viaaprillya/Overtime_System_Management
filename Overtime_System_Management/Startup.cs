@@ -59,7 +59,7 @@ namespace Overtime_System_Management
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=LoginPage}/");
+                    pattern: "{controller=Home}/{action=LandingPage}/");
             });
         }
     }
