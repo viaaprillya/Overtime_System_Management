@@ -7,7 +7,6 @@ $(document).ready(function () {
 
         ajax: {
             url: `https://localhost:44372/api/Lembur/KaryawanID?karyawanId=${Id}`,
-            //url: `https://localhost:17828/api/Lembur/KaryawanID?karyawanId=${Id}`,
             dataSrc: "data",
             dataType: "JSON"
         },
@@ -46,13 +45,13 @@ $(document).ready(function () {
                 render: function (data, type, meta) {
                     let approvalBtn;
                     if (data == "Processing") {
-                        approvalBtn = `<button class="btn btn-warning btn-sm">Processing</button>`
+                        approvalBtn = `<button class="btn btn-warning btn-sm" style="pointer-events: none;">Pending</button>`
                     }
                     else if (data == "Approved") {
-                        approvalBtn = `<button class="btn btn-success btn-sm">Approved</button>`
+                        approvalBtn = `<button class="btn btn-success btn-sm" style="pointer-events: none;">Approved</button>`
                     }
                     else if (data == "Rejected") {
-                        approvalBtn = `<button class="btn btn-danger btn-sm">Rejected</button>`
+                        approvalBtn = `<button class="btn btn-danger btn-sm" style="pointer-events: none;">Rejected</button>`
                     }
                     return approvalBtn;
                     
@@ -87,7 +86,6 @@ $(document).ready(function () {
 
     $.ajax({
         url: `https://localhost:44372/api/Lembur/KaryawanID?karyawanId=${Id}`,
-        //url: `https://localhost:17828/api/Lembur/KaryawanID?karyawanId=${Id}`,
         type: "GET",
     })
         .done((result) => {
@@ -133,31 +131,41 @@ $(document).ready(function () {
 
 function Insert(event, karyawanId) {
     event.preventDefault();
-    var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-    //ini ngambil value dari tiap inputan di form nya
-    console.log(karyawanId);
-    obj.karyawanId = parseInt(karyawanId);
-    obj.tanggal = $("#lemburTanggal").val();
-    obj.durasi = parseInt($("#lemburDurasi").val());
-    obj.keterangan =$("#lemburKeterangan").val();
-    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-    $.ajax({
-        contentType: "application/json",
-        url: "https://localhost:44372/api/Lembur/PengajuanLembur",
-        //url: "https://localhost:17828/api/Lembur/PengajuanLembur",
-        type: "POST",
-        data: JSON.stringify(obj) //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
-    }).done((result) => {
-        //buat alert pemberitahuan jika success
-        Swal.fire(
-            'Request submitted',
-            'Please wait for approval!',
-            'success'
-        )
-        $('#karyawanTable1').DataTable().ajax.reload();
-
-    }).fail((error) => {
-        console.log(error);
-    })
+    Swal.fire({
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+            var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+            //ini ngambil value dari tiap inputan di form nya
+            //console.log(karyawanId);
+            obj.karyawanId = parseInt(karyawanId);
+            obj.tanggal = $("#lemburTanggal").val();
+            obj.durasi = parseInt($("#lemburDurasi").val());
+            obj.keterangan = $("#lemburKeterangan").val();
+            //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+            $.ajax({
+                contentType: "application/json",
+                url: "https://localhost:44372/api/Lembur/PengajuanLembur",
+                type: "POST",
+                data: JSON.stringify(obj) //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
+            }).done((result) => {
+                //buat alert pemberitahuan jika success
+                Swal.close()
+                Swal.fire({
+                    allowOutsideClick: false,
+                    title: 'Request submitted',
+                    text: 'Please wait for approval!',
+                    icon: 'success'
+                });
+                $('#karyawanTable1').DataTable().ajax.reload();
+                $('#requestFormModal').modal('hide');
+                $('#requestFormModal').on('hidden.bs.modal', function () {
+                    $(this).find('form').trigger('reset');
+                });
+            }).fail((error) => {
+                console.log(error);
+            })
+        }
+    });
 };
 

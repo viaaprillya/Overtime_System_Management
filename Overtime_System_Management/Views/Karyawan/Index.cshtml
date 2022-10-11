@@ -3,11 +3,11 @@
     Layout = "_KaryawanLayout";
 }
 
-<h1 id="headingLembur">Pengajuan Lembur</h1>
+<h1 id="headingLembur">Overtime Request</h1>
 
 <p class="mt-4">
     <button type="button"
-            class="btn btn-primary"
+            class="main-btn"
             data-toggle="modal"
             data-target="#requestFormModal">
         Request Overtime
@@ -28,7 +28,7 @@
                 role="tab"
                 aria-controls="nav-approving"
                 aria-selected="true">
-            Pengajuan Lembur
+            Overtime Request
         </button>
         <button class="nav-link"
                 onclick="changeTab('2')"
@@ -39,7 +39,7 @@
                 role="tab"
                 aria-controls="nav-approved"
                 aria-selected="false">
-            History Gaji
+            Salary History
         </button>
     </div>
 </nav>
@@ -146,7 +146,7 @@
                                             <div class="row form-group justify-content-md-center">
                                                 <input type="submit"
                                                        value="Request"
-                                                       class="btn btn-primary col-3" />
+                                                       class="main-btn col-3" />
                                                 @*onclick="Insert(event, @ViewBag.Id)" />*@
                                             </div>
                                         </form>
@@ -165,7 +165,7 @@
 
 <h1>Data Lembur Tahun 2022</h1>
 
-<div class="card shadow mt-4 p-3">
+<div class="card shadow mb-4">
     <canvas width="600" height="200" id="myChart"></canvas>
 </div>
 

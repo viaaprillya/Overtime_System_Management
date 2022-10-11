@@ -8,20 +8,20 @@
     </style>
 }
 
-<h1 id="headingApproval">Butuh Approval</h1>
+<h1 id="headingApproval">Need Approval</h1>
 
 <p>
     <button type="button"
-            class="btn btn-primary"
+            class="main-btn"
             data-toggle="modal"
             data-target="#registrasiFormModal">
-        Registrasi Karyawan
+        Register Employee
     </button>
     <button type="button"
-            class="btn btn-primary"
+            class="main-btn"
             data-toggle="modal"
             data-target="#cetakFormModal">
-        Cetak Slip Gaji
+        Show Salary Slip
     </button>
 </p>
 <nav>
@@ -35,7 +35,7 @@
                 role="tab"
                 aria-controls="nav-approving"
                 aria-selected="true">
-            Butuh Approval
+            Need Approval
         </button>
         <button class="nav-link"
                 onclick="changeTab('2')"
@@ -46,7 +46,7 @@
                 role="tab"
                 aria-controls="nav-approved"
                 aria-selected="false">
-            Sudah Approval
+            Finished Approval
         </button>
     </div>
 </nav>
@@ -163,7 +163,7 @@
                                             <div class="row form-group justify-content-md-center">
                                                 <input type="submit"
                                                        value="Register"
-                                                       class="btn btn-primary col-3" />
+                                                       class="main-btn col-3" />
                                                 @*onclick="Registrasi()"*@
                                                 @*data-dismiss="modal" />*@
                                             </div>
@@ -185,7 +185,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">
-                                    Cetak Slip Gaji
+                                    Show Salary Slip
                                 </h5>
                                 <button type="button"
                                         class="close"
@@ -212,7 +212,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label">Bulan/Tahun</label>
+                                                <label class="control-label">Bulan-Tahun</label>
                                                 <input type="month"
                                                        class="form-control"
                                                        id="cetakBulanTahun"
@@ -220,8 +220,8 @@
                                             </div>
 
                                             <div class="row form-group justify-content-md-center">
-                                                <input type="submit" value="Cetak"
-                                                       class="btn btn-primary col-3" />
+                                                <input type="submit" value="Show"
+                                                       class="main-btn col-3" />
                                                 @*onclick="CetakSlipGaji()"*@
                                                 @*data-dismiss="modal"*@
                                                 @*data-toggle="modal"*@
@@ -245,7 +245,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">
-                                    Slip Gaji
+                                    Salary Slip
                                 </h5>
                                 <button type="button"
                                         class="close"
@@ -381,11 +381,11 @@
 <form>
     <div class="form-row align-items-end">
         <div class="col-auto">
-            <label for="formGroupExampleInput">Bulan/Tahun</label>
+            <label for="formGroupExampleInput">Bulan-Tahun</label>
             <input type="month" class="form-control" id="chartTanggal" value="2022-10">
         </div>
         <div class="col-auto">
-            <button onclick="changeChart()" class="btn btn-primary">Tampilkan</button>
+            <button onclick="changeChart()" class="main-btn">Show</button>
         </div>
     </div>
 </form>
