@@ -5,11 +5,10 @@
 
 @section Styles {
     <style>
-       
     </style>
 }
 
-<h1>Butuh Approval</h1>
+<h1 id="headingApproval">Butuh Approval</h1>
 
 <p>
     <button type="button"
@@ -62,8 +61,8 @@
                      id="nav-approving"
                      role="tabpanel"
                      aria-labelledby="nav-approving-tab">
-                    <table class="table table-bordered" id="lemburTable1" width="100%" cellspacing="0">
-                        <thead>
+                    <table class="table table-bordered table-striped" id="lemburTable1" width="100%" cellspacing="0">
+                        <thead class="thead-dark">
                             <tr>
                                 <th>No.</th>
                                 @*<th>Lembur ID</th>*@
@@ -82,8 +81,8 @@
                      id="nav-approved"
                      role="tabpanel"
                      aria-labelledby="nav-approved-tab">
-                    <table class="table table-bordered" id="lemburTable2" width="100%" cellspacing="0">
-                        <thead>
+                    <table class="table table-bordered table-striped" id="lemburTable2" width="100%" cellspacing="0">
+                        <thead class="thead-dark">
                             <tr>
                                 <th>No.</th>
                                 @*<th>Lembur ID</th>*@
@@ -152,21 +151,21 @@
                                                 @*<label class="control-label">Jabatan ID</label>*@
                                                 <label class="control-label">Jabatan</label>
                                                 @*<input class="form-control"
-                                                id="registrasiJabatan"
-                                                value="" required />*@
+                                                    id="registrasiJabatan"
+                                                    value="" required />*@
                                                 <select class="form-control" id="registrasiJabatan" required>
                                                     @*<option value="volvo">Volvo</option>
-                                                    <option value="saab">Saab</option>
-                                                    <option value="mercedes">Mercedes</option>
-                                                    <option value="audi">Audi</option>*@
+                                                        <option value="saab">Saab</option>
+                                                        <option value="mercedes">Mercedes</option>
+                                                        <option value="audi">Audi</option>*@
                                                 </select>
                                             </div>
                                             <div class="row form-group justify-content-md-center">
                                                 <input type="submit"
                                                        value="Register"
                                                        class="btn btn-primary col-3" />
-                                                       @*onclick="Registrasi()"*@
-                                                       @*data-dismiss="modal" />*@
+                                                @*onclick="Registrasi()"*@
+                                                @*data-dismiss="modal" />*@
                                             </div>
                                         </form>
                                     </div>
@@ -207,9 +206,9 @@
                                                 @*<input class="form-control" id="cetakId" required />*@
                                                 <select class="form-control" id="cetakId" required>
                                                     @*<option value="volvo">Volvo</option>
-                                                    <option value="saab">Saab</option>
-                                                    <option value="mercedes">Mercedes</option>
-                                                    <option value="audi">Audi</option>*@
+                                                        <option value="saab">Saab</option>
+                                                        <option value="mercedes">Mercedes</option>
+                                                        <option value="audi">Audi</option>*@
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -223,10 +222,10 @@
                                             <div class="row form-group justify-content-md-center">
                                                 <input type="submit" value="Cetak"
                                                        class="btn btn-primary col-3" />
-                                                       @*onclick="CetakSlipGaji()"*@
-                                                       @*data-dismiss="modal"*@
-                                                       @*data-toggle="modal"*@
-                                                       @*data-target="#slipGajiModal" />*@
+                                                @*onclick="CetakSlipGaji()"*@
+                                                @*data-dismiss="modal"*@
+                                                @*data-toggle="modal"*@
+                                                @*data-target="#slipGajiModal" />*@
                                             </div>
                                         </form>
                                     </div>
@@ -350,6 +349,27 @@
         </div>
     </div>
 </div>
+
+<hr class="my-2" />
+
+<h1>Data Lembur Tahun 2022</h1>
+
+<form>
+    <div class="form-row align-items-end">
+        <div class="col-auto">
+            <label for="formGroupExampleInput">Bulan/Tahun</label>
+            <input type="month" class="form-control" id="chartTanggal" value="2022-10">
+        </div>
+        <div class="col-auto">
+            <button onclick="changeChart()" class="btn btn-primary">Tampilkan</button>
+        </div>
+    </div>
+</form>
+
+<div class="card shadow mt-4 p-3">
+    <canvas width="600" height="200" id="myChart"></canvas>
+</div>
+
 <input type="hidden" value="@ViewBag.Id" id="UserId" />
 @section Scripts {
     <script src="~/js/admin/index.js"></script>

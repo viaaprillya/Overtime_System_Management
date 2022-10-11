@@ -175,10 +175,9 @@
 
         <!-- Page level plugins -->
         <!--<script src="~/sbadmin/vendor/chart.js/Chart.min.js"></script>-->
-
         <!-- Page level custom scripts -->
         <!--<script src="~/sbadmin/js/demo/chart-area-demo.js"></script>
-        <script src="~/sbadmin/js/demo/chart-pie-demo.js"></script>-->
+    <script src="~/sbadmin/js/demo/chart-pie-demo.js"></script>-->
 
         <script type="text/javascript"
                 charset="utf8"
@@ -190,6 +189,7 @@
 
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         @RenderSection("Scripts", required: false)
 
@@ -203,12 +203,12 @@
             $("#linkTab1, #nav-approving-tab").on('click', function () {
                 $('#nav-approving-tab')[0].click();
                 var tabName = $('#nav-approving-tab').text();
-                $('h1').html(tabName);
+                $('#headingApproval').html(tabName);
             });
             $("#linkTab2, #nav-approved-tab").on('click', function () {
                 $('#nav-approved-tab')[0].click();
                 var tabName = $('#nav-approved-tab').text();
-                $('h1').html(tabName);
+                $('#headingApproval').html(tabName);
             });
         </script>
 </body>

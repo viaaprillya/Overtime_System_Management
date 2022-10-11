@@ -1,6 +1,4 @@
-﻿const Id = document.getElementById('UserId').value;
-//console.log(Id);
-
+﻿
 function changeTab(val) {
 
 }
@@ -11,8 +9,8 @@ $(document).ready(function () {
     var t = $('#karyawanTable2').DataTable({
 
         ajax: {
-            //url: `https://localhost:44372/api/Gaji/HistoryGajiKaryawan?idKaryawan=${Id}`,
-            url: `https://localhost:17828/api/Gaji/HistoryGajiKaryawan?idKaryawan=${Id}`,
+            url: `https://localhost:44372/api/Gaji/HistoryGajiKaryawan?idKaryawan=${Id}`,
+            //url: `https://localhost:17828/api/Gaji/HistoryGajiKaryawan?idKaryawan=${Id}`,
             dataSrc: "data",
             dataType: "JSON"
         },

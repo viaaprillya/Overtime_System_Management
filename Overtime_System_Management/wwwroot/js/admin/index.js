@@ -1,5 +1,88 @@
 ﻿const Id = document.getElementById('UserId').value;
+let myChart;
 //console.log(Id);
+
+//chartJS
+function chartLembur(bulan, tahun) {
+    $.ajax({
+        url: "https://localhost:44372/api/Lembur",
+        type: "GET",
+    })
+        .done((result) => {
+            
+            let dataLembur = result.data.filter(
+                (x) =>
+                    x.approval == "Approved" &&
+                    new Date(x.tanggal).getMonth() + 1 == bulan &&
+                    new Date(x.tanggal).getFullYear() == tahun
+            );
+
+            if (dataLembur.length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Data does not exist!',
+                    text: 'Please check your input again!',
+                });
+            }
+            
+            const labels = {};
+            let totalLembur = [];
+            $.each(dataLembur, function (index, element) {
+                let idx = totalLembur.findIndex(
+                    (x) => x.nama === element.karyawan.namaLengkap
+                );
+                if (idx == -1) {
+                    totalLembur.push({
+                        nama: element.karyawan.namaLengkap,
+                        total: element.durasi,
+                    });
+                } else {
+                    totalLembur[idx].total += element.durasi;
+                }
+            });
+            //console.log(totalLembur);
+            const config = {
+                type: "bar",
+                data: {
+                    datasets: [
+                        {
+                            data: totalLembur,
+                            label: "Total Durasi Lembur (Jam)",
+                            backgroundColor: "rgb(37, 117, 218 )",
+                            barThickness: 30,
+                        },
+                    ],
+                },
+                options: {
+                    indexAxis: "y",
+                    parsing: {
+                        xAxisKey: "total",
+                        yAxisKey: "nama",
+                    },
+                    scales: {
+                        x: {
+                            max: Math.max(...totalLembur.map((x) => x.total)) * 1.5,
+                        },
+                    },
+                },
+            };
+
+            myChart = new Chart(
+                document.getElementById("myChart"),
+                config
+            );
+        })
+        .fail((error) => {
+            console.log(error);
+        });
+}
+
+function changeChart() {
+    event.preventDefault();
+    myChart.destroy();
+    const tanggal = $("#chartTanggal").val().split("-");
+    chartLembur(tanggal[1], tanggal[0]);
+}
 
 function changeTab(val) {
 
@@ -9,6 +92,9 @@ $(document).ready(function () {
 
     loadTable('1');
     loadTable('2');
+    chartLembur('10', '2022')
+
+    
     //$("#lemburTable2")[0].style.width = '100%';
     //$("#lemburTable1")[0].style.width = '100%';
 });
@@ -18,8 +104,8 @@ function loadTable(val) {
         processing: true,
         fixedColumns: true,
         ajax: {
-            //url: "https://localhost:44372/api/Lembur",
-            url: "https://localhost:17828/api/Lembur",
+            url: "https://localhost:44372/api/Lembur",
+            //url: "https://localhost:17828/api/Lembur",
             dataSrc: function (json) {
                 let result;
                 if (val == '1') {
@@ -108,8 +194,8 @@ function Approve(opt) {
     const id = document.getElementById('lemburApprovalId').value;
 
     $.ajax({
-        //url: `https://localhost:44372/api/Lembur/ID?idLembur=${id}`,
-        url: `https://localhost:17828/api/Lembur/ID?idLembur=${id}`,
+        url: `https://localhost:44372/api/Lembur/ID?idLembur=${id}`,
+        //url: `https://localhost:17828/api/Lembur/ID?idLembur=${id}`,
         type: "GET",
     }).done((result) => {
 
@@ -123,8 +209,8 @@ function Approve(opt) {
         console.log(lembur);
 
         $.ajax({
-            //url: "https://localhost:44372/api/Lembur/",
-            url: "https://localhost:17828/api/Lembur/",
+            url: "https://localhost:44372/api/Lembur/",
+            //url: "https://localhost:17828/api/Lembur/",
             type: "PUT",
             contentType: "application/json",
             data: JSON.stringify(lembur)
@@ -162,8 +248,8 @@ function Registrasi() {
             obj.jabatanID = parseInt($("#registrasiJabatan").val());
             $.ajax({
                 contentType: "application/json",
-                //url: "https://localhost:44372/api/Account/Register/",
-                url: "https://localhost:17828/api/Account/Register/",
+                url: "https://localhost:44372/api/Account/Register/",
+                //url: "https://localhost:17828/api/Account/Register/",
                 type: "POST",
                 data: JSON.stringify(obj)
             }).done((result) => {
@@ -195,8 +281,8 @@ function CetakSlipGaji() {
             const tanggal = $("#cetakBulanTahun").val().split("-");
 
             $.ajax({
-                //url: `https://localhost:44372/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
-                url: `https://localhost:17828/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
+                url: `https://localhost:44372/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
+                //url: `https://localhost:17828/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
                 type: "GET",
             }).done((result) => {
                 let gaji = result.data;
@@ -233,7 +319,7 @@ function CetakSlipGaji() {
 }
 
 $.ajax({
-    url: "https://localhost:17828/api/Jabatan"
+    url: "https://localhost:44372/api/Jabatan"
 }).done((result) => {
     //console.log(result);
     test = "";
@@ -247,16 +333,17 @@ $.ajax({
 });
 
 $.ajax({
-    url: "https://localhost:17828/api/Karyawan"
+    url: "https://localhost:44372/api/Karyawan"
 }).done((result) => {
     //console.log(result);
     test = "";
-    $.each(result.data, function (key, val) {
-        test += `<option value="${key + 1}">${val.namaLengkap}</option>`;
+    let data = result.data.filter(x => x.email != "admin@gmail.com");
+    $.each(data, function (key, val) {
+        test += `<option value="${val.id}">${val.namaLengkap}</option>`;
     })
     //console.log(test);
     $("#cetakId").html(test);
-    $('#cetakId').val(parseInt(Id));
+    //$('#cetakId').val(parseInt(Id));
 }).fail((error) => {
     console.log(error);
 })
