@@ -6,8 +6,8 @@ $(document).ready(function () {
     var t = $('#karyawanTable1').DataTable({
 
         ajax: {
-            //url: `https://localhost:44372/api/Lembur/KaryawanID?karyawanId=${Id}`,
-            url: `https://localhost:17828/api/Lembur/KaryawanID?karyawanId=${Id}`,
+            url: `https://localhost:44372/api/Lembur/KaryawanID?karyawanId=${Id}`,
+            //url: `https://localhost:17828/api/Lembur/KaryawanID?karyawanId=${Id}`,
             dataSrc: "data",
             dataType: "JSON"
         },
@@ -86,8 +86,8 @@ $(document).ready(function () {
     ];
 
     $.ajax({
-        //url: `https://localhost:44372/api/Lembur/KaryawanID?karyawanId=${Id}`,
-        url: `https://localhost:17828/api/Lembur/KaryawanID?karyawanId=${Id}`,
+        url: `https://localhost:44372/api/Lembur/KaryawanID?karyawanId=${Id}`,
+        //url: `https://localhost:17828/api/Lembur/KaryawanID?karyawanId=${Id}`,
         type: "GET",
     })
         .done((result) => {
@@ -143,8 +143,8 @@ function Insert(event, karyawanId) {
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
         contentType: "application/json",
-        //url: "https://localhost:44372/api/Lembur/PengajuanLembur",
-        url: "https://localhost:17828/api/Lembur/PengajuanLembur",
+        url: "https://localhost:44372/api/Lembur/PengajuanLembur",
+        //url: "https://localhost:17828/api/Lembur/PengajuanLembur",
         type: "POST",
         data: JSON.stringify(obj) //jika terkena 415 unsupported media type (tambahkan headertype Json & JSON.Stringify();)
     }).done((result) => {

@@ -37,8 +37,8 @@ namespace Overtime_System_Management.Controllers
         public async Task<IActionResult> Login(Login login)
         {
 
-            //string address = "https://localhost:44372/api/Account/login";
-            string address = "https://localhost:17828/api/Account/login";
+            string address = "https://localhost:44372/api/Account/login";
+            //string address = "https://localhost:17828/api/Account/login";
             HttpClient = new HttpClient
             {
                 BaseAddress = new Uri(address)
@@ -97,8 +97,8 @@ namespace Overtime_System_Management.Controllers
         public IActionResult ChangePassword(ChangePassword changePassword)
         {
 
-            //string address = "https://localhost:44372/api/Account/ChangePassword";
-            string address = "https://localhost:17828/api/Account/ChangePassword";
+            string address = "https://localhost:44372/api/Account/ChangePassword";
+            //string address = "https://localhost:17828/api/Account/ChangePassword";
             HttpClient = new HttpClient
             {
                 BaseAddress = new Uri(address)

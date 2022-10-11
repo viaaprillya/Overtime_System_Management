@@ -5,8 +5,8 @@ let myChart;
 //chartJS
 function chartLembur(bulan, tahun) {
     $.ajax({
-        //url: "https://localhost:44372/api/Lembur",
-        url: "https://localhost:17828/api/Lembur",
+        url: "https://localhost:44372/api/Lembur",
+        //url: "https://localhost:17828/api/Lembur",
         type: "GET",
     })
         .done((result) => {
@@ -41,6 +41,7 @@ function chartLembur(bulan, tahun) {
                     totalLembur[idx].total += element.durasi;
                 }
             });
+            totalLembur = totalLembur.sort((a, b) => { return b.total - a.total });
             //console.log(totalLembur);
             const config = {
                 type: "bar",
@@ -105,8 +106,8 @@ function loadTable(val) {
         processing: true,
         fixedColumns: true,
         ajax: {
-            //url: "https://localhost:44372/api/Lembur",
-            url: "https://localhost:17828/api/Lembur",
+            url: "https://localhost:44372/api/Lembur",
+            //url: "https://localhost:17828/api/Lembur",
             dataSrc: function (json) {
                 let result;
                 if (val == '1') {
@@ -196,8 +197,8 @@ function loadTable(val) {
 function getLembur(id) {
     document.getElementById('lemburApprovalId').value = id;
     $.ajax({
-        //url: `https://localhost:44372/api/Lembur/ID?idLembur=${id}`,
-        url: `https://localhost:17828/api/Lembur/ID?idLembur=${id}`,
+        url: `https://localhost:44372/api/Lembur/ID?idLembur=${id}`,
+        //url: `https://localhost:17828/api/Lembur/ID?idLembur=${id}`,
         type: "GET",
     }).done((result) => {
         let lembur = result.data;
@@ -220,8 +221,8 @@ function Approve(opt) {
     const id = document.getElementById('lemburApprovalId').value;
 
     $.ajax({
-        //url: `https://localhost:44372/api/Lembur/ID?idLembur=${id}`,
-        url: `https://localhost:17828/api/Lembur/ID?idLembur=${id}`,
+        url: `https://localhost:44372/api/Lembur/ID?idLembur=${id}`,
+        //url: `https://localhost:17828/api/Lembur/ID?idLembur=${id}`,
         type: "GET",
     }).done((result) => {
 
@@ -232,11 +233,11 @@ function Approve(opt) {
         else if (opt == "yes") {
             lembur.approval = "Approved";
         }
-        console.log(lembur);
+        //console.log(lembur);
 
         $.ajax({
-            //url: "https://localhost:44372/api/Lembur/",
-            url: "https://localhost:17828/api/Lembur/",
+            url: "https://localhost:44372/api/Lembur/",
+            //url: "https://localhost:17828/api/Lembur/",
             type: "PUT",
             contentType: "application/json",
             data: JSON.stringify(lembur)
@@ -249,6 +250,7 @@ function Approve(opt) {
                 )
                 $('#lemburTable1').DataTable().ajax.reload();
                 $('#lemburTable2').DataTable().ajax.reload();
+                changeChart();
             })
             .fail((error) => {
                 console.log("post error");
@@ -274,8 +276,8 @@ function Registrasi() {
             obj.jabatanID = parseInt($("#registrasiJabatan").val());
             $.ajax({
                 contentType: "application/json",
-                //url: "https://localhost:44372/api/Account/Register/",
-                url: "https://localhost:17828/api/Account/Register/",
+                url: "https://localhost:44372/api/Account/Register/",
+                //url: "https://localhost:17828/api/Account/Register/",
                 type: "POST",
                 data: JSON.stringify(obj)
             }).done((result) => {
@@ -307,8 +309,8 @@ function CetakSlipGaji() {
             const tanggal = $("#cetakBulanTahun").val().split("-");
 
             $.ajax({
-                //url: `https://localhost:44372/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
-                url: `https://localhost:17828/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
+                url: `https://localhost:44372/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
+                //url: `https://localhost:17828/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
                 type: "GET",
             }).done((result) => {
                 let gaji = result.data;
@@ -345,8 +347,8 @@ function CetakSlipGaji() {
 }
 
 $.ajax({
-    //url: "https://localhost:44372/api/Jabatan"
-    url: "https://localhost:17828/api/Jabatan"
+    url: "https://localhost:44372/api/Jabatan"
+    //url: "https://localhost:17828/api/Jabatan"
 }).done((result) => {
     //console.log(result);
     test = "";
@@ -360,8 +362,8 @@ $.ajax({
 });
 
 $.ajax({
-    //url: "https://localhost:44372/api/Karyawan"
-    url: "https://localhost:17828/api/Karyawan"
+    url: "https://localhost:44372/api/Karyawan"
+    //url: "https://localhost:17828/api/Karyawan"
 }).done((result) => {
     //console.log(result);
     test = "";
