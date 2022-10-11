@@ -31,7 +31,7 @@ namespace API.Repositories.Data
 
         public Lembur Get(int id)
         {
-            var data = myContext.Lembur.Find(id);
+            var data = myContext.Lembur.Include(x => x.Karyawan).Where(x => x.ID == id).FirstOrDefault();
             return data;
         }
 

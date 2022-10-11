@@ -326,20 +326,43 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <input type="hidden" value="" id="lemburApprovalId" />
-                                        <div class="row form-group justify-content-md-center">
-                                            <input value="No"
-                                                   class="btn btn-danger col-3"
-                                                   onclick="Approve('no')"
-                                                   data-dismiss="modal" />
-                                            <input value="Yes"
-                                                   class="btn btn-success col-3 offset-1"
-                                                   onclick="Approve('yes')"
-                                                   data-dismiss="modal" />
-                                        </div>
+                                <div class="row mb-2">
+                                    <div class="col-4">Nama Karyawan</div>
+                                    <div class="col-8 detailValue" id="detail-namaKaryawan">
+
                                     </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4">Tanggal</div>
+                                    <div class="col-8 detailValue" id="detail-tanggal">
+
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4">Waktu (Jam)</div>
+                                    <div class="col-8 detailValue" id="detail-jam">
+
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4">Keterangan</div>
+                                    <div class="col-8 detailValue" id="detail-keterangan">
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <br />
+                                </div>
+                                <input type="hidden" value="" id="lemburApprovalId" />
+                                <div class="row form-group justify-content-md-center">
+                                    <input value="No"
+                                        class="btn btn-danger col-3"
+                                        onclick="Approve('no')"
+                                        data-dismiss="modal" />
+                                    <input value="Yes"
+                                        class="btn btn-success col-3 offset-1"
+                                        onclick="Approve('yes')"
+                                        data-dismiss="modal" />
                                 </div>
                             </div>
                         </div>
