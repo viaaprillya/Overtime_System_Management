@@ -9,7 +9,6 @@ $(document).ready(function () {
 
         ajax: {
             url: `https://localhost:44372/api/Gaji/HistoryGajiKaryawan?idKaryawan=${Id}`,
-            //url: `https://localhost:17828/api/Gaji/HistoryGajiKaryawan?idKaryawan=${Id}`,
             dataSrc: "data",
             dataType: "JSON"
         },
