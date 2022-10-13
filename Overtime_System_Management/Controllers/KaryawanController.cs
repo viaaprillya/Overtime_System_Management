@@ -30,7 +30,8 @@ namespace Overtime_System_Management.Controllers
             return View();
         }
 
-        public IActionResult HistoryGaji()
+
+        public IActionResult Dashboard()
         {
             var role = HttpContext.Session.GetString("Role");
             var fullName = HttpContext.Session.GetString("FullName");

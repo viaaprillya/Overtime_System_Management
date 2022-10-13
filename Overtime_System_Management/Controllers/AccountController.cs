@@ -22,11 +22,11 @@ namespace Overtime_System_Management.Controllers
             {
                 if (role == "User")
                 {
-                    return RedirectToAction("Index", "Karyawan");
+                    return RedirectToAction("Dashboard", "Karyawan");
                 }
                 else if (role == "Admin")
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Dashboard", "Admin");
                 }
             }
 
@@ -54,11 +54,11 @@ namespace Overtime_System_Management.Controllers
                 HttpContext.Session.SetString("Email", data.data.Email);
                 if (data.data.Role == "User")
                 {
-                    return RedirectToAction("Index", "Karyawan");
+                    return RedirectToAction("Dashboard", "Karyawan");
                 }
                 else if (data.data.Role == "Admin")
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Dashboard", "Admin");
                 }
 
             }

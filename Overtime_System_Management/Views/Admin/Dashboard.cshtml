@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+
+<h1>Data Lembur Tahun 2022</h1>
+
+<form>
+    <div class="form-row align-items-end">
+        <div class="col-auto">
+            <label for="formGroupExampleInput">Bulan-Tahun</label>
+            <input type="month" class="form-control" id="chartTanggal" value="2022-10">
+        </div>
+        <div class="col-auto">
+            <button onclick="changeChart()" class="main-btn">Show</button>
+        </div>
+    </div>
+</form>
+
+<div class="card shadow mt-4 p-3">
+    <canvas width="600" height="200" id="myChart"></canvas>
+</div>
+
+<input type="hidden" value="@ViewBag.Id" id="UserId" />
+@section Scripts {
+    <script src="~/js/admin/index.js"></script>
+}
