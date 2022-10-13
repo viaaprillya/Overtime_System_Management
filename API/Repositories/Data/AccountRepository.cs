@@ -58,6 +58,9 @@ namespace API.Repositories.Data
             karyawan.NomerRekening = register.NomerRekening;
             karyawan.NomerTelepon = register.NomerTelepon;
             karyawan.JabatanID = register.JabatanID;
+            karyawan.Tanggal_Masuk = register.Tanggal_Masuk;
+            karyawan.Gender = register.Gender;
+            karyawan.Tanggal_Lahir = register.Tanggal_Lahir;
             myContext.Karyawan.Add(karyawan);
             myContext.SaveChanges();
 
