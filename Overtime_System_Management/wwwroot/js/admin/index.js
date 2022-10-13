@@ -369,3 +369,18 @@ $.ajax({
 }).fail((error) => {
     console.log(error);
 })
+
+function cetak() {
+    let divContents = document.getElementById("slipGajiModal").children[0].children[0].innerHTML;
+    let headContent = document.getElementsByTagName("head")[0].innerHTML;
+    let a = window.open('', '', 'height=842, width=595');
+    a.document.write('<html>');
+    a.document.write(`<head> ${headContent} </head>`);
+    a.document.write('<body style="height: 842px;width: 595px;"> ');
+    a.document.write(divContents);
+    a.document.write('</body></html>');
+    a.document.getElementsByClassName("close")[0].remove();
+    a.document.getElementsByClassName("main-btn")[0].value = 'Overtime Management System 2022';
+    a.document.close();
+    a.print();
+}
