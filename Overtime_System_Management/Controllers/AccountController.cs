@@ -22,11 +22,11 @@ namespace Overtime_System_Management.Controllers
             {
                 if (role == "User")
                 {
-                    return RedirectToAction("Index", "Karyawan");
+                    return RedirectToAction("Dashboard", "Karyawan");
                 }
                 else if (role == "Admin")
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Dashboard", "Admin");
                 }
             }
 
@@ -38,7 +38,6 @@ namespace Overtime_System_Management.Controllers
         {
 
             string address = "https://localhost:44372/api/Account/login";
-            //string address = "https://localhost:17828/api/Account/login";
             HttpClient = new HttpClient
             {
                 BaseAddress = new Uri(address)
@@ -55,11 +54,11 @@ namespace Overtime_System_Management.Controllers
                 HttpContext.Session.SetString("Email", data.data.Email);
                 if (data.data.Role == "User")
                 {
-                    return RedirectToAction("Index", "Karyawan");
+                    return RedirectToAction("Dashboard", "Karyawan");
                 }
                 else if (data.data.Role == "Admin")
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Dashboard", "Admin");
                 }
 
             }
@@ -98,7 +97,6 @@ namespace Overtime_System_Management.Controllers
         {
 
             string address = "https://localhost:44372/api/Account/ChangePassword";
-            //string address = "https://localhost:17828/api/Account/ChangePassword";
             HttpClient = new HttpClient
             {
                 BaseAddress = new Uri(address)
@@ -108,8 +106,10 @@ namespace Overtime_System_Management.Controllers
             var result = HttpClient.PostAsync(address, content).Result;
             var fullName = HttpContext.Session.GetString("FullName");
             var email = HttpContext.Session.GetString("Email");
+            var role = HttpContext.Session.GetString("Role");
             ViewBag.FullName = fullName;
             ViewBag.Email = email;
+            ViewBag.Role = role;
             if (result.IsSuccessStatusCode)
             {
                 ViewBag.Success = "true";

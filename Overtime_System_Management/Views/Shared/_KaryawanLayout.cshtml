@@ -8,7 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>OMS - Karyawan</title>
 
     <!-- Custom fonts for this template-->
     <link href="~/sbadmin/vendor/fontawesome-free/css/all.min.css"
@@ -23,9 +23,15 @@
     <link rel="stylesheet"
           type="text/css"
           href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css" />
+
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="~/basic-opl/assets/images/logo-ot-removebg-preview.png" type="image/png">
+
+    <link rel="stylesheet" href="~/css/style.css">
+
 </head>
 
-<body id="page-top">
+<body id="page-top" style="margin-bottom: 0px;">
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
@@ -33,11 +39,10 @@
             id="accordionSidebar">
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center"
-               href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+               href="/Karyawan/Dashboard">
+                <div class="sidebar-brand-icon">
+                    <img src="~/basic-opl/assets/images/logo-ot-removebg-preview-cropped.png" style="width: 50%;">
                 </div>
-                <div class="sidebar-brand-text mx-3">Overtime Management System</div>
             </a>
 
             <!-- Divider -->
@@ -45,7 +50,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/Karyawan/Dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -55,7 +60,12 @@
             <hr class="sidebar-divider" />
 
             <!-- Heading -->
-            <div class="sidebar-heading">Tables</div>
+            <li class="nav-item active">
+                <a class="nav-link" href="/Karyawan/Index">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Overtime</span>
+                </a>
+            </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -64,7 +74,7 @@
                    aria-expanded="true"
                    aria-controls="collapseTwo" id="linkTab1">
                     <!-- <i class="fas fa-fw fa-cog"></i> -->
-                    <span>Overtime</span>
+                    <span>Overtime Request</span>
                 </a>
             </li>
 
@@ -75,7 +85,7 @@
                    aria-expanded="true"
                    aria-controls="collapseUtilities" id="linkTab2">
                     <!-- <i class="fas fa-fw fa-wrench"></i> -->
-                    <span>Salary</span>
+                    <span>Salary History</span>
                 </a>
             </li>
 
@@ -100,7 +110,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    @*<p class="h3">Overtime Request System</p>*@
+                    <p class="h3">Karyawan</p>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -125,7 +135,7 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item"
-                                   href="/account/logout/"
+                                   href="/Account/Logout"
                                    @*data-toggle="modal"
                                 data-target="#logoutModal"*@>
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

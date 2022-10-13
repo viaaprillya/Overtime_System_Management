@@ -1,7 +1,21 @@
-﻿function chartLembur(bulan, tahun) {
+const Id = document.getElementById('UserId').value;
+let myChart;
+//console.log(Id);
+
+//chartJS
+function getRandomColorHex() {
+    var hex = "0123456789ABCDEF",
+        color = "#";
+    for (var i = 1; i <= 6; i++) {
+        color += hex[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function chartLembur(bulan, tahun) {
+
     $.ajax({
         url: "https://localhost:44372/api/Lembur",
-        //url: "https://localhost:17828/api/Lembur",
         type: "GET",
     })
         .done((result) => {
@@ -38,6 +52,12 @@
             });
             totalLembur = totalLembur.sort((a, b) => { return b.total - a.total });
             //console.log(totalLembur);
+
+            let bgColor = [];
+            for (var i = 0; i < totalLembur.length; i++) {
+                bgColor.push(getRandomColorHex());
+            }
+            console.log(bgColor);
             const config = {
                 type: "bar",
                 data: {
@@ -45,8 +65,11 @@
                         {
                             data: totalLembur,
                             label: "Total Durasi Lembur (Jam)",
-                            backgroundColor: "rgb(37, 117, 218 )",
+                            backgroundColor: bgColor,
+                            //backgroundColor: "rgb(37, 117, 218 )",
                             barThickness: 30,
+                            borderColor: 'rgba(0,0,0,1)',
+                            borderWidth: 0.5,
                         },
                     ],
                 },
@@ -102,7 +125,6 @@ function loadTable(val) {
         fixedColumns: true,
         ajax: {
             url: "https://localhost:44372/api/Lembur",
-            //url: "https://localhost:17828/api/Lembur",
             dataSrc: function (json) {
                 let result;
                 if (val == '1') {
@@ -193,7 +215,6 @@ function getLembur(id) {
     document.getElementById('lemburApprovalId').value = id;
     $.ajax({
         url: `https://localhost:44372/api/Lembur/ID?idLembur=${id}`,
-        //url: `https://localhost:17828/api/Lembur/ID?idLembur=${id}`,
         type: "GET",
     }).done((result) => {
         let lembur = result.data;
@@ -217,7 +238,6 @@ function Approve(opt) {
 
     $.ajax({
         url: `https://localhost:44372/api/Lembur/ID?idLembur=${id}`,
-        //url: `https://localhost:17828/api/Lembur/ID?idLembur=${id}`,
         type: "GET",
     }).done((result) => {
 
@@ -232,7 +252,6 @@ function Approve(opt) {
 
         $.ajax({
             url: "https://localhost:44372/api/Lembur/",
-            //url: "https://localhost:17828/api/Lembur/",
             type: "PUT",
             contentType: "application/json",
             data: JSON.stringify(lembur)
@@ -277,7 +296,6 @@ function Registrasi() {
             $.ajax({
                 contentType: "application/json",
                 url: "https://localhost:44372/api/Account/Register/",
-                //url: "https://localhost:17828/api/Account/Register/",
                 type: "POST",
                 data: JSON.stringify(obj)
             }).done((result) => {
@@ -285,7 +303,7 @@ function Registrasi() {
                 Swal.fire({
                     allowOutsideClick: false,
                     title: 'User Registered',
-                    text: `Karyawan dengan nama ${obj.namaLengkap} berhasil diregistrasi!`,
+                    text: `Employee with name ${obj.namaLengkap} has been successfully registered!`,
                     icon: 'success'
                 });
                 $('#registrasiFormModal').modal('hide');
@@ -311,7 +329,6 @@ function CetakSlipGaji() {
             
             $.ajax({
                 url: `https://localhost:44372/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
-                //url: `https://localhost:17828/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
                 type: "GET",
             }).done((result) => {
                 let gaji = result.data;
@@ -349,7 +366,6 @@ function CetakSlipGaji() {
 
 $.ajax({
     url: "https://localhost:44372/api/Jabatan"
-    //url: "https://localhost:17828/api/Jabatan"
 }).done((result) => {
     //console.log(result);
     test = "";
@@ -364,7 +380,6 @@ $.ajax({
 
 $.ajax({
     url: "https://localhost:44372/api/Karyawan"
-    //url: "https://localhost:17828/api/Karyawan"
 }).done((result) => {
     //console.log(result);
     test = "";
@@ -378,4 +393,21 @@ $.ajax({
     //$('#cetakId').val(parseInt(Id));
 }).fail((error) => {
     console.log(error);
-});
+
+})
+
+function cetak() {
+    let divContents = document.getElementById("slipGajiModal").children[0].children[0].innerHTML;
+    let headContent = document.getElementsByTagName("head")[0].innerHTML;
+    let a = window.open('', '', 'height=842, width=595');
+    a.document.write('<html>');
+    a.document.write(`<head> ${headContent} </head>`);
+    a.document.write('<body style="height: 842px;width: 595px;"> ');
+    a.document.write(divContents);
+    a.document.write('</body></html>');
+    a.document.getElementsByClassName("close")[0].remove();
+    a.document.getElementsByClassName("main-btn")[0].value = 'Overtime Management System 2022';
+    a.document.close();
+    a.print();
+}
+

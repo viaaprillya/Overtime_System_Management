@@ -16,6 +16,7 @@ namespace Overtime_System_Management.Controllers
             var id = HttpContext.Session.GetString("Id");
             ViewBag.Id = id;
             ViewBag.FullName = fullName;
+            ViewBag.Role = role;
             if(role == null)
             {
                 
@@ -29,7 +30,8 @@ namespace Overtime_System_Management.Controllers
             return View();
         }
 
-        public IActionResult HistoryGaji()
+
+        public IActionResult Dashboard()
         {
             var role = HttpContext.Session.GetString("Role");
             var fullName = HttpContext.Session.GetString("FullName");
