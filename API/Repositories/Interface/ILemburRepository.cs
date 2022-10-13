@@ -10,7 +10,7 @@ namespace API.Repositories.Interface
         Lembur Get(int id);
         List<Lembur> GetByKaryawanId(int karyawanid);
         int Post(PengajuanLembur pengajuanLembur);
-        int Put(Lembur lembur);
+        int Put(EditLembur lembur);
         int Delete(int id);
     }
 }

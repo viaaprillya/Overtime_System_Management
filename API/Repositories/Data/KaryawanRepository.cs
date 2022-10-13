@@ -17,8 +17,11 @@ namespace API.Repositories.Data
         }
         public int Delete(int id)
         {
-            var data = myContext.Karyawan.Find(id);
-            myContext.Karyawan.Remove(data);
+            //var dataGaji = myContext.Gaji.Find(id);
+            var dataKaryawan = myContext.Karyawan.Find(id);
+            //myContext.Gaji.Remove(dataGaji);
+            myContext.SaveChanges();
+            myContext.Karyawan.Remove(dataKaryawan);
             var result = myContext.SaveChanges();
             return result;
         }
@@ -31,11 +34,11 @@ namespace API.Repositories.Data
 
         public Karyawan Get(int id)
         {
-            var data = myContext.Karyawan.Find(id);
+            var data = myContext.Karyawan.Include(x => x.Jabatan).Where(x => x.ID == id).FirstOrDefault();
             return data;
         }
 
-        public int Put(Karyawan karyawan)
+        public int Put(EditKaryawan karyawan)
         {
             var data = myContext.Karyawan.Find(karyawan.ID);
             data.NamaLengkap = karyawan.NamaLengkap;

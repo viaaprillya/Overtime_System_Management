@@ -65,7 +65,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put(Lembur lembur)
+        public IActionResult Put(EditLembur lembur)
         {
             var data = lemburRepository.Put(lembur);
             if (data > 0)

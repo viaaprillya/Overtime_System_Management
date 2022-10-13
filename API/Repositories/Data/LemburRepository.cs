@@ -54,9 +54,10 @@ namespace API.Repositories.Data
             return result;
         }
 
-        public int Put(Lembur lembur)
+        public int Put(EditLembur lembur)
         {
             var data = myContext.Lembur.Find(lembur.ID);
+            data.ID = lembur.ID;
             data.KaryawanID = lembur.KaryawanID;
             data.Durasi = lembur.Durasi;
             data.Tanggal = lembur.Tanggal;

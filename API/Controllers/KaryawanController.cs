@@ -46,7 +46,8 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put(Karyawan karyawan)
+        [Route("EditKaryawan")]
+        public IActionResult Put(EditKaryawan karyawan)
         {
             var data = karyawanRepository.Put(karyawan);
             if (data > 0)

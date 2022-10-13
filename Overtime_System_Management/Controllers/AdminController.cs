@@ -31,5 +31,26 @@ namespace Overtime_System_Management.Controllers
             return View();
         }
 
+        public IActionResult KaryawanDetails()
+        {
+            var role = HttpContext.Session.GetString("Role");
+            var fullName = HttpContext.Session.GetString("FullName");
+            var id = HttpContext.Session.GetString("Id");
+            ViewBag.Id = id;
+            ViewBag.FullName = fullName;
+            ViewBag.Role = role;
+            if (role == null)
+            {
+
+                TempData["Unauthorized"] = "true";
+                return RedirectToAction("LoginPage", "Account");
+            }
+            if (role != "Admin")
+            {
+                return View("~/Views/Shared/Forbidden.cshtml");
+            }
+            return View();
+        }
+
     }
 }
