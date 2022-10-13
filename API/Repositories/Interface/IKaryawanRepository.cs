@@ -8,7 +8,7 @@ namespace API.Repositories.Interface
     {
         List<Karyawan> Get();
         Karyawan Get(int id);
-        int Put(Karyawan karyawan);
+        int Put(EditKaryawan karyawan);
         int Delete(int id);
     }
 }

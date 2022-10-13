@@ -41,16 +41,17 @@ $(document).ready(function () {
                 data: "keterangan"
             },
             {
-                data: 'approval',
+                data: null,
                 render: function (data, type, meta) {
                     let approvalBtn;
-                    if (data == "Processing") {
-                        approvalBtn = `<button class="btn btn-warning btn-sm" style="pointer-events: none;">Pending</button>`
+                    if (data.approval == "Processing") {
+                        approvalBtn = `<button class="btn btn-warning btn-sm" onclick="editLembur(${data.id})" data-toggle="modal"
+                        data-target="#editFormModal")>Pending</button>`
                     }
-                    else if (data == "Approved") {
+                    else if (data.approval == "Approved") {
                         approvalBtn = `<button class="btn btn-success btn-sm" style="pointer-events: none;">Approved</button>`
                     }
-                    else if (data == "Rejected") {
+                    else if (data.approval == "Rejected") {
                         approvalBtn = `<button class="btn btn-danger btn-sm" style="pointer-events: none;">Rejected</button>`
                     }
                     return approvalBtn;
@@ -169,3 +170,103 @@ function Insert(event, karyawanId) {
     });
 };
 
+function editLembur(id) {
+    $.ajax({
+        url: `https://localhost:44372/api/Lembur/ID?idLembur=${id}`,
+        type: "GET",
+    }).done((result) => {
+        let lembur = result.data;
+        $("#editId").val(lembur.id);
+        console.log(lembur.id);
+        $("#editKaryawanId").val(lembur.karyawanID);
+        console.log(lembur.karyawanID);
+        let tanggal = (lembur.tanggal).slice(0, -9);
+        $("#editTanggal").val(tanggal);
+        console.log(tanggal);
+
+        const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let dataTanggal = new Date(lembur.tanggal);
+        let date = dataTanggal.getDate() > 9 ? dataTanggal.getDate() : "0" + dataTanggal.getDate();
+        $("#detail-tanggal").html(`${date} ${month[dataTanggal.getMonth()]} ${dataTanggal.getFullYear()}`);
+        
+        parseInt($("#editDurasi").val(lembur.durasi));
+        $("#detail-durasi").html(lembur.durasi);
+        console.log(lembur.durasi);
+        $("#editKeterangan").val(lembur.keterangan);
+        $("#detail-keterangan").html(lembur.keterangan);
+        console.log(lembur.keterangan);
+        $("#editApproval").val(lembur.approval);
+        console.log(lembur.approval);
+
+        $("#deleteApproval").val(lembur.id);
+    });
+}
+
+function editedLembur() {
+    event.preventDefault();
+    Swal.fire({
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+            var obj = new Object();
+            obj.id = parseInt($("#editId").val());
+            obj.karyawanID = parseInt($("#editKaryawanId").val());
+            obj.durasi = parseInt($("#editDurasi").val());
+            obj.tanggal = $("#editTanggal").val();
+            obj.keterangan = $("#editKeterangan").val();
+            obj.approval = $("#editApproval").val();
+            $.ajax({
+                contentType: "application/json",
+                url: "https://localhost:44372/api/Lembur",
+                type: "PUT",
+                data: JSON.stringify(obj)
+            }).done((result) => {
+                Swal.close();
+                Swal.fire({
+                    allowOutsideClick: false,
+                    title: 'Overtime Edited',
+                    text: `Overtime request has been successfully edited!`,
+                    icon: 'success'
+                });
+                $('#karyawanTable1').DataTable().ajax.reload();
+                $('#editFormModal').modal('hide');
+                $('#editFormModal').on('hidden.bs.modal', function () {
+                    $(this).find('form').trigger('reset');
+                });
+            }).fail((error) => {
+                console.log(error);
+            });
+        }
+    });
+}
+
+function deletedLembur(opt) {
+    event.preventDefault();
+    const id = document.getElementById('deleteApproval').value;
+    if (opt == "no") {
+        $('#deleteModal').modal('hide');
+    }
+    else if (opt == "yes") {
+        Swal.fire({
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+                $.ajax({
+                    contentType: "application/json",
+                    url: `https://localhost:44372/api/Lembur?ID=${id}`,
+                    type: "DELETE"
+                });
+                Swal.close();
+                Swal.fire({
+                    allowOutsideClick: false,
+                    title: 'Overtime Request Deleted',
+                    text: `Overtime request has been successfully deleted!`,
+                    icon: 'success'
+                });
+                $('#karyawanTable1').DataTable().ajax.reload();
+                $('#deleteModal').modal('hide');
+                $('#editFormModal').modal('hide');
+            }
+        });
+    }
+}

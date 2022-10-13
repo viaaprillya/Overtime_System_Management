@@ -1,0 +1,190 @@
+﻿@{
+    ViewData["Title"] = "Karyawan Details";
+    Layout = "_AdminLayout";
+}
+
+@section Styles {
+    <style>
+    </style>
+}
+
+<h1 id="headingApproval">Karyawan Details</h1>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="karyawanDTable1" width="100%" cellspacing="0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>No.</th>
+                        <th>ID</th>
+                        <th>Nama Lengkap</th>
+                        <th>Email</th>
+                        <th>No. Rekening</th>
+                        <th>No. Telepon</th>
+                        <th>Jabatan</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <!-- Modal Edit-->
+            <div class="modal fade"
+                 id="editFormModal"
+                 tabindex="-1"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Ubah Data Karyawan
+                            </h5>
+                            <button type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form onsubmit="editedKaryawan()" method="post">
+                                        <div asp-validation-summary="ModelOnly"
+                                             class="text-danger"></div>
+                                        <div class="form-group">
+                                            <label class="control-label">Nama</label>
+                                            <input type="hidden" class="form-control"
+                                                   id="editId"
+                                                   value="" required />
+                                            <input class="form-control" id="editNama" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">No. Rekening</label>
+                                            <input class="form-control"
+                                                   id="editNoRek"
+                                                   value="" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">No. Telepon</label>
+                                            <input class="form-control"
+                                                   id="editNoTelp"
+                                                   value="" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Email</label>
+                                            <input class="form-control"
+                                                   id="editEmail"
+                                                   value="" required />
+                                        </div>
+                                        <div class="form-group">
+                                            @*<label class="control-label">Jabatan ID</label>*@
+                                            <label class="control-label">Jabatan</label>
+                                            @*<input class="form-control"
+            id="registrasiJabatan"
+            value="" required />*@
+                                            <select class="form-control" id="editJabatan" required>
+                                                @*<option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>*@
+                                            </select>
+                                        </div>
+                                        <div class="row form-group justify-content-md-center">
+                                            <input type="submit"
+                                                   value="Ubah"
+                                                   class="main-btn col-3" />
+                                            @*onclick="Registrasi()"*@
+                                            @*data-dismiss="modal" />*@
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Delete-->
+            <div class="modal fade"
+                 id="deleteModal"
+                 tabindex="-1"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Hapus karyawan?
+                            </h5>
+                            <button type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-2">
+                                <div class="col-4">ID</div>
+                                <div class="col-8 detailValue" id="detail-id">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Nama Lengkap</div>
+                                <div class="col-8 detailValue" id="detail-namaLengkap">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Email</div>
+                                <div class="col-8 detailValue" id="detail-email">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">No. Rekening</div>
+                                <div class="col-8 detailValue" id="detail-noRek">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">No. Telepon</div>
+                                <div class="col-8 detailValue" id="detail-noTelp">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Jabatan</div>
+                                <div class="col-8 detailValue" id="detail-jabatan">
+
+                                </div>
+                            </div>
+                            <div>
+                                <br />
+                            </div>
+                            <input type="hidden" value="" id="deleteApproval" />
+                            <div class="row form-group justify-content-md-center">
+                                <input value="No"
+                                       class="btn btn-danger col-3"
+                                       onclick="deletedKaryawan('no')"
+                                       data-dismiss="modal" />
+                                <input value="Yes"
+                                       class="btn btn-success col-3 offset-1"
+                                       onclick="deletedKaryawan('yes')" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <input type="hidden" value="@ViewBag.Id" id="UserId" />
+    @section Scripts {
+        <script src="~/js/admin/karyawanDetails.js"></script>
+    }
