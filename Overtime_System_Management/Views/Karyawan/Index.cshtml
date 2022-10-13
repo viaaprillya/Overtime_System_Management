@@ -186,7 +186,7 @@
                                                 <label class="control-label">Tanggal</label>
                                                 <input type="hidden" class="form-control"
                                                        id="editId"
-                                                       value="" re  quired />
+                                                       value="" re quired />
                                                 <input type="hidden" class="form-control"
                                                        id="editKaryawanId"
                                                        value="" required />
@@ -221,10 +221,9 @@
                                                 <input type="submit"
                                                        value="Ubah"
                                                        class="main-btn col-3" />
-                                                <input 
-                                                       value="Hapus"
+                                                <input value="Hapus"
                                                        class="main-btn col-3 offset-1" data-toggle="modal"
-                        data-target="#deleteModal" data-dismiss="modal" />
+                                                       data-target="#deleteModal" data-dismiss="modal" />
                                                 @*onclick="Insert(event, @ViewBag.Id)" />*@
                                             </div>
                                         </form>
@@ -234,6 +233,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Modal Delete-->
                 <div class="modal fade"
                      id="deleteModal"
@@ -281,7 +281,7 @@
                                            class="btn btn-danger col-3"
                                            onclick="deletedLembur('no')"
                                            data-toggle="modal"
-                        data-target="#editFormModal" />
+                                           data-target="#editFormModal" />
                                     <input value="Yes"
                                            class="btn btn-success col-3 offset-1"
                                            onclick="deletedLembur('yes')" />
@@ -298,6 +298,7 @@
 <hr class="my-2" />
 
 <input type="hidden" value="@ViewBag.Id" id="UserId" />
+<input type="hidden" value="@ViewBag.Gender" id="GenderId" />
 @section Scripts {
     <script src="~/js/karyawan/index.js"></script>
     <script src="~/js/karyawan/historyGaji.js"></script>

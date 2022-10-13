@@ -71,9 +71,6 @@ namespace API.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Gender")
-                        .HasColumnType("bit");
-
                     b.Property<int>("JabatanID")
                         .HasColumnType("int");
 
@@ -85,12 +82,6 @@ namespace API.Migrations
 
                     b.Property<string>("NomerTelepon")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Tanggal_Lahir")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Tanggal_Masuk")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("ID");
 

@@ -10,6 +10,15 @@
 
 <h1 id="headingApproval">Karyawan Details</h1>
 
+<p>
+    <button type="button"
+            class="main-btn"
+            data-toggle="modal"
+            data-target="#registrasiFormModal">
+        Register Employee
+    </button>
+</p>
+
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
@@ -29,6 +38,116 @@
                 <tbody>
                 </tbody>
             </table>
+
+            <!-- Modal Register-->
+            <div class="modal fade"
+                 id="registrasiFormModal"
+                 tabindex="-1"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Data Karyawan Baru
+                            </h5>
+                            <button type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form onsubmit="Registrasi()" method="post">
+                                        <div asp-validation-summary="ModelOnly"
+                                             class="text-danger"></div>
+                                        <div class="form-group">
+                                            <label class="control-label">Nama</label>
+                                            <input class="form-control" id="registrasiNama" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Tanggal Lahir</label>
+                                            <input type="date"
+                                                   class="form-control"
+                                                   id="registrasiTanggalLahir"
+                                                   value="" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Gender</label>
+                                            <div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="registrasiGender" value="0" id="Male" checked>
+                                                    <label class="form-check-label" for="Male">
+                                                        Male
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="registrasiGender" value="1" id="Female">
+                                                    <label class="form-check-label" for="Female">
+                                                        Female
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">No. Rekening</label>
+                                            <input class="form-control"
+                                                   id="registrasiNoRekening"
+                                                   value="" oninput="this.value = this.value
+                                                                .replace(/[^0-9.]/g, '')
+                                                                .replace(/(\..*?)\..*/g, '$1');" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">No. Telepon</label>
+                                            <input class="form-control"
+                                                   id="registrasiNoTelepon"
+                                                   value="" oninput="this.value = this.value
+                                                                .replace(/[^0-9.]/g, '')
+                                                                .replace(/(\..*?)\..*/g, '$1');" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Email</label>
+                                            <input class="form-control"
+                                                   id="registrasiEmail"
+                                                   value="" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Tanggal Masuk</label>
+                                            <input type="date"
+                                                   class="form-control"
+                                                   id="registrasiTanggalMasuk"
+                                                   value="" required />
+                                        </div>
+                                        <div class="form-group">
+                                            @*<label class="control-label">Jabatan ID</label>*@
+                                            <label class="control-label">Jabatan</label>
+                                            @*<input class="form-control"
+                                        id="registrasiJabatan"
+                                        value="" required />*@
+                                            <select class="form-control" id="registrasiJabatan" required>
+                                                @*<option value="volvo">Volvo</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="mercedes">Mercedes</option>
+                                            <option value="audi">Audi</option>*@
+                                            </select>
+                                        </div>
+                                        <div class="row form-group justify-content-md-center">
+                                            <input type="submit"
+                                                   value="Register"
+                                                   class="main-btn col-3" />
+                                            @*onclick="Registrasi()"*@
+                                            @*data-dismiss="modal" />*@
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Modal Edit-->
             <div class="modal fade"
@@ -63,16 +182,44 @@
                                             <input class="form-control" id="editNama" required />
                                         </div>
                                         <div class="form-group">
+                                            <label class="control-label">Tanggal Lahir</label>
+                                            <input type="date"
+                                                   class="form-control"
+                                                   id="editTanggalLahir"
+                                                   value="" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Gender</label>
+                                            <div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="editGender" value="L" id="Male" checked>
+                                                    <label class="form-check-label" for="Male">
+                                                        Male
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="editGender" value="P" id="Female">
+                                                    <label class="form-check-label" for="Female">
+                                                        Female
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="control-label">No. Rekening</label>
                                             <input class="form-control"
                                                    id="editNoRek"
-                                                   value="" required />
+                                                   value="" oninput="this.value = this.value
+                                                                .replace(/[^0-9.]/g, '')
+                                                                .replace(/(\..*?)\..*/g, '$1');" required />
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">No. Telepon</label>
                                             <input class="form-control"
                                                    id="editNoTelp"
-                                                   value="" required />
+                                                   value="" oninput="this.value = this.value
+                                                                .replace(/[^0-9.]/g, '')
+                                                                .replace(/(\..*?)\..*/g, '$1');" required />
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Email</label>
@@ -81,16 +228,23 @@
                                                    value="" required />
                                         </div>
                                         <div class="form-group">
+                                            <label class="control-label">Tanggal Masuk</label>
+                                            <input type="date"
+                                                   class="form-control"
+                                                   id="editTanggalMasuk"
+                                                   value="" required />
+                                        </div>
+                                        <div class="form-group">
                                             @*<label class="control-label">Jabatan ID</label>*@
                                             <label class="control-label">Jabatan</label>
                                             @*<input class="form-control"
-            id="registrasiJabatan"
-            value="" required />*@
+                                        id="registrasiJabatan"
+                                        value="" required />*@
                                             <select class="form-control" id="editJabatan" required>
                                                 @*<option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>*@
+                                            <option value="saab">Saab</option>
+                                            <option value="mercedes">Mercedes</option>
+                                            <option value="audi">Audi</option>*@
                                             </select>
                                         </div>
                                         <div class="row form-group justify-content-md-center">
@@ -101,6 +255,85 @@
                                             @*data-dismiss="modal" />*@
                                         </div>
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Details-->
+            <div class="modal fade"
+                 id="detailsModal"
+                 tabindex="-1"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Details
+                            </h5>
+                            <button type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-2">
+                                <div class="col-4">ID</div>
+                                <div class="col-8 detailValue" id="detail-id">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Nama Lengkap</div>
+                                <div class="col-8 detailValue" id="detail-namaLengkap">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Gender</div>
+                                <div class="col-8 detailValue" id="detail-gender">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Tanggal Lahir</div>
+                                <div class="col-8 detailValue" id="detail-tglLahir">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Tanggal Masuk</div>
+                                <div class="col-8 detailValue" id="detail-tglMasuk">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Email</div>
+                                <div class="col-8 detailValue" id="detail-email">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">No. Rekening</div>
+                                <div class="col-8 detailValue" id="detail-noRek">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">No. Telepon</div>
+                                <div class="col-8 detailValue" id="detail-noTelp">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Jabatan</div>
+                                <div class="col-8 detailValue" id="detail-jabatan">
+
                                 </div>
                             </div>
                         </div>
@@ -130,37 +363,55 @@
                         <div class="modal-body">
                             <div class="row mb-2">
                                 <div class="col-4">ID</div>
-                                <div class="col-8 detailValue" id="detail-id">
+                                <div class="col-8 detailValue" id="delete-id">
 
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4">Nama Lengkap</div>
-                                <div class="col-8 detailValue" id="detail-namaLengkap">
+                                <div class="col-8 detailValue" id="delete-namaLengkap">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Gender</div>
+                                <div class="col-8 detailValue" id="delete-gender">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Tanggal Lahir</div>
+                                <div class="col-8 detailValue" id="delete-tglLahir">
+
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">Tanggal Masuk</div>
+                                <div class="col-8 detailValue" id="delete-tglMasuk">
 
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4">Email</div>
-                                <div class="col-8 detailValue" id="detail-email">
+                                <div class="col-8 detailValue" id="delete-email">
 
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4">No. Rekening</div>
-                                <div class="col-8 detailValue" id="detail-noRek">
+                                <div class="col-8 detailValue" id="delete-noRek">
 
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4">No. Telepon</div>
-                                <div class="col-8 detailValue" id="detail-noTelp">
+                                <div class="col-8 detailValue" id="delete-noTelp">
 
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4">Jabatan</div>
-                                <div class="col-8 detailValue" id="detail-jabatan">
+                                <div class="col-8 detailValue" id="delete-jabatan">
 
                                 </div>
                             </div>
@@ -184,7 +435,7 @@
         </div>
     </div>
 </div>
-    <input type="hidden" value="@ViewBag.Id" id="UserId" />
-    @section Scripts {
-        <script src="~/js/admin/karyawanDetails.js"></script>
-    }
+<input type="hidden" value="@ViewBag.Id" id="UserId" />
+@section Scripts {
+    <script src="~/js/admin/karyawanDetails.js"></script>
+}

@@ -1,5 +1,7 @@
 ﻿const Id = document.getElementById('UserId').value;
 console.log(Id);
+const GenderId = document.getElementById('GenderId').value;
+console.log(GenderId);
 
 $(document).ready(function () {
 
