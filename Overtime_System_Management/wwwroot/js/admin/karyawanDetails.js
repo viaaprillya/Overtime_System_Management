@@ -59,12 +59,14 @@ function loadTable(val) {
             {
                 data: null,
                 render: function (data, type, meta) {
-                    return `<button class="btn btn-warning btn-sm" onclick="editKaryawan(${data.id})" data-toggle="modal"
+                    return `<div class="row">
+                        <button class="btn btn-warning btn-sm col" onclick="editKaryawan(${data.id})" data-toggle="modal"
                         data-target="#editFormModal">Edit</button>
-                            <button class="btn btn-info btn-sm" onclick="detailsKaryawan(${data.id})" data-toggle="modal"
+                            <button class="btn btn-info btn-sm col mx-2" onclick="detailsKaryawan(${data.id})" data-toggle="modal"
                         data-target="#detailsModal">Details</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteKaryawan(${data.id})" data-toggle="modal"
-                        data-target="#deleteModal">Delete</button>`;
+                            <button class="btn btn-danger btn-sm col" onclick="deleteKaryawan(${data.id})" data-toggle="modal"
+                        data-target="#deleteModal">Delete</button>
+                        </div>`;
                 }
             }
         ]
