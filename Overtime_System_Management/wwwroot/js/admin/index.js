@@ -3,6 +3,15 @@ let myChart;
 //console.log(Id);
 
 //chartJS
+function getRandomColorHex() {
+    var hex = "0123456789ABCDEF",
+        color = "#";
+    for (var i = 1; i <= 6; i++) {
+        color += hex[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
 function chartLembur(bulan, tahun) {
     $.ajax({
         url: "https://localhost:44372/api/Lembur",
@@ -42,6 +51,12 @@ function chartLembur(bulan, tahun) {
             });
             totalLembur = totalLembur.sort((a, b) => { return b.total - a.total });
             //console.log(totalLembur);
+
+            let bgColor = [];
+            for (var i = 0; i < totalLembur.length; i++) {
+                bgColor.push(getRandomColorHex());
+            }
+            console.log(bgColor);
             const config = {
                 type: "bar",
                 data: {
@@ -49,8 +64,11 @@ function chartLembur(bulan, tahun) {
                         {
                             data: totalLembur,
                             label: "Total Durasi Lembur (Jam)",
-                            backgroundColor: "rgb(37, 117, 218 )",
+                            backgroundColor: bgColor,
+                            //backgroundColor: "rgb(37, 117, 218 )",
                             barThickness: 30,
+                            borderColor: 'rgba(0,0,0,1)',
+                            borderWidth: 0.5,
                         },
                     ],
                 },
