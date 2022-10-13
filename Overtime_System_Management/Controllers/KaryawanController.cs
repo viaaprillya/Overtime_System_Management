@@ -38,10 +38,16 @@ namespace Overtime_System_Management.Controllers
             var id = HttpContext.Session.GetString("Id");
             ViewBag.Id = id;
             ViewBag.FullName = fullName;
+            ViewBag.Role = role;
             if (role == null)
             {
+
                 TempData["Unauthorized"] = "true";
                 return RedirectToAction("LoginPage", "Account");
+            }
+            if (role != "User")
+            {
+                return View("~/Views/Shared/Forbidden.cshtml");
             }
             return View();
         }

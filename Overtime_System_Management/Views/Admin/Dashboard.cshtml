@@ -3,7 +3,7 @@
     Layout = "_AdminLayout";
 }
 
-<h1>Data Lembur Tahun 2022</h1>
+<h1>Data Lembur</h1>
 
 <form>
     <div class="form-row align-items-end">
@@ -19,6 +19,30 @@
 
 <div class="card shadow mt-4 p-3">
     <canvas width="600" height="200" id="myChart"></canvas>
+</div>
+
+<hr class="my-lg-5" />
+
+<h1>Data Karyawan</h1>
+
+<div class="row">
+    <div class="col-6">
+        <div class="card shadow mt-4 p-3">
+            <h4 class="text-center">Gender</h4>
+            <div class="px-5">
+                <canvas width="100" height="100" id="genderChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card shadow mt-4 p-3">
+            <h4 class="text-center">Usia</h4>
+            <div class="px-5">
+                <canvas width="100" height="100" id="umurChart"></canvas>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <input type="hidden" value="@ViewBag.Id" id="UserId" />

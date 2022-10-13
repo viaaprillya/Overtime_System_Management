@@ -1,4 +1,4 @@
-const Id = document.getElementById('UserId').value;
+﻿const Id = document.getElementById('UserId').value;
 let myChart;
 //console.log(Id);
 
@@ -12,6 +12,86 @@ function getRandomColorHex() {
     return color;
 }
 
+function chartKaryawan() {
+    $.ajax({
+        url: "https://localhost:44372/api/Karyawan",
+        type: "GET",
+    }).done((result) => {
+        let dataGender = [];
+        for (var i = 0; i < 2; i++) {
+            let count = result.data.filter(x => x.gender == i).length;
+            dataGender.push(count);
+        }
+
+        const dataChartGender = {
+            labels: ['Laki-laki', 'Perempuan'],
+            datasets:
+                [
+                    {
+                        label: 'Dataset 1',
+                        data: dataGender,
+                        backgroundColor: ['rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)'],
+                        hoverOffset: 4
+                    }
+                ]
+        };
+
+        const configChartGender = {
+            type: 'doughnut',
+            data: dataChartGender,
+        }
+
+        let genderChart = new Chart(
+            document.getElementById("genderChart"),
+            configChartGender
+        );
+
+        let dataUsia = new Array(3).fill(0);
+        
+        for (var i = 0; i < result.data.length; i++) {
+            let age = Date.now() - new Date(result.data[i].tanggal_Lahir);
+            age = Math.floor(age / 1000 / 60 / 60 / 24 / 365); // convert to years
+            if (age < 25) {
+                dataUsia[0]++;
+            } else if (age >= 25 && age <= 45) {
+                dataUsia[1]++;
+            } else if (age > 45) {
+                dataUsia[2]++;
+            }
+        }
+
+        const dataChartUsia = {
+            labels: ['Usia < 25', '25 ≤ Usia ≤ 45', 'Usia > 45'],
+            datasets:
+                [
+                    {
+                        label: 'Dataset 1',
+                        data: dataUsia,
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'],
+                        hoverOffset: 4
+                    }
+                ]
+        };
+
+        const configChartUsia = {
+            type: 'doughnut',
+            data: dataChartUsia,
+        }
+
+        let usiaChart = new Chart(
+            document.getElementById("umurChart"),
+            configChartUsia
+        );
+
+    }).fail((error) => {
+        console.log(error);
+    });
+}
+
 function chartLembur(bulan, tahun) {
 
     $.ajax({
@@ -19,7 +99,7 @@ function chartLembur(bulan, tahun) {
         type: "GET",
     })
         .done((result) => {
-            
+
             let dataLembur = result.data.filter(
                 (x) =>
                     x.approval == "Approved" &&
@@ -34,7 +114,7 @@ function chartLembur(bulan, tahun) {
                     text: 'Please check your input again!',
                 });
             }
-            
+
             const labels = {};
             let totalLembur = [];
             $.each(dataLembur, function (index, element) {
@@ -112,9 +192,10 @@ $(document).ready(function () {
 
     loadTable('1');
     loadTable('2');
-    chartLembur('10', '2022')
+    chartLembur('10', '2022');
+    chartKaryawan();
 
-    
+
     //$("#lemburTable2")[0].style.width = '100%';
     //$("#lemburTable1")[0].style.width = '100%';
 });
@@ -323,10 +404,10 @@ function CetakSlipGaji() {
         allowOutsideClick: false,
         didOpen: () => {
             Swal.showLoading();
-            
+
             const id = $("#cetakId").val();
             const tanggal = $("#cetakBulanTahun").val().split("-");
-            
+
             $.ajax({
                 url: `https://localhost:44372/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
                 type: "GET",

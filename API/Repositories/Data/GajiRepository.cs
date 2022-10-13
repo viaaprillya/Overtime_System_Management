@@ -202,6 +202,7 @@ namespace API.Repositories.Data
 
         public List<SlipGaji> Get(int idKaryawan)
         {
+            isiTabelGaji();
             var gaji = myContext.Gaji.ToList();
 
             List<SlipGaji> listSlip = new List<SlipGaji>();
