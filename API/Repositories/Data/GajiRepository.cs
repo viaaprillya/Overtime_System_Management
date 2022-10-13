@@ -71,7 +71,7 @@ namespace API.Repositories.Data
                     x.Karyawan.ID.Equals(cetakSlipGaji.KaryawanID) &&
                     x.Tanggal.Month == cetakSlipGaji.Bulan &&
                     x.Tanggal.Year == cetakSlipGaji.Tahun
-                    //&& x.Approval == "Approved"
+                    && x.Approval == "Approved"
                     ).FirstOrDefault();
 
             var dataKaryawan = myContext.Karyawan.Find(cetakSlipGaji.KaryawanID);
