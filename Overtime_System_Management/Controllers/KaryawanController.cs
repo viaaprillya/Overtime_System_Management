@@ -14,10 +14,12 @@ namespace Overtime_System_Management.Controllers
             var role = HttpContext.Session.GetString("Role");
             var fullName = HttpContext.Session.GetString("FullName");
             var id = HttpContext.Session.GetString("Id");
+            var gender = HttpContext.Session.GetString("Gender");
             ViewBag.Id = id;
             ViewBag.FullName = fullName;
             ViewBag.Role = role;
-            if(role == null)
+            ViewBag.Gender = gender;
+            if (role == null)
             {
                 
                 TempData["Unauthorized"] = "true";
@@ -36,9 +38,11 @@ namespace Overtime_System_Management.Controllers
             var role = HttpContext.Session.GetString("Role");
             var fullName = HttpContext.Session.GetString("FullName");
             var id = HttpContext.Session.GetString("Id");
+            var gender = HttpContext.Session.GetString("Gender");
             ViewBag.Id = id;
             ViewBag.FullName = fullName;
             ViewBag.Role = role;
+            ViewBag.Gender = gender;
             if (role == null)
             {
 

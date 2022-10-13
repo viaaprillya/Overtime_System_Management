@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20221013100335_create_table_gaji")]
-    partial class create_table_gaji
+    [Migration("20221013144922_karyawan_add_column")]
+    partial class karyawan_add_column
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,6 +73,9 @@ namespace API.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Gender")
+                        .HasColumnType("bit");
+
                     b.Property<int>("JabatanID")
                         .HasColumnType("int");
 
@@ -84,6 +87,12 @@ namespace API.Migrations
 
                     b.Property<string>("NomerTelepon")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Tanggal_Lahir")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Tanggal_Masuk")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ID");
 
