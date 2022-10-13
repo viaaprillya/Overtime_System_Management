@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20221013093902_create_table_gaji.cs" />
+    <Compile Remove="Migrations\20221013093902_create_table_gaji.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.29" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.29">
@@ -22,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>

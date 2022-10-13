@@ -70,15 +70,15 @@ namespace API.Repositories.Data
                     .Where(x =>
                     x.Karyawan.ID.Equals(cetakSlipGaji.KaryawanID) &&
                     x.Tanggal.Month == cetakSlipGaji.Bulan &&
-                    x.Tanggal.Year == cetakSlipGaji.Tahun &&
-                    x.Approval == "Approved"
+                    x.Tanggal.Year == cetakSlipGaji.Tahun
+                    && x.Approval == "Approved"
                     ).FirstOrDefault();
 
+            var dataKaryawan = myContext.Karyawan.Find(cetakSlipGaji.KaryawanID);
+            var gajiPokok = myContext.Jabatan.Find(dataKaryawan.JabatanID).GajiPokok;
+            var tunjangan = myContext.Jabatan.Find(dataKaryawan.JabatanID).Tunjangan;
             if (gaji != null)
             {
-                var dataKaryawan = myContext.Karyawan.Find(cetakSlipGaji.KaryawanID);
-                var gajiPokok = myContext.Jabatan.Find(dataKaryawan.JabatanID).GajiPokok;
-                var tunjangan = myContext.Jabatan.Find(dataKaryawan.JabatanID).Tunjangan;
                 if (cekLembur != null)
                 {
                     var dataLembur = myContext.Lembur
@@ -93,7 +93,7 @@ namespace API.Repositories.Data
 
                     var lembur = dataLembur.totalLembur;
 
-                    
+
                     /* Upah Lembur tiap Jam = 0,5% dari Gaji */
                     double totalLembur = (double)lembur * (0.005 * (double)gajiPokok);
 
@@ -109,25 +109,27 @@ namespace API.Repositories.Data
                     slipGaji.TotalGaji = totalGaji;
                     return slipGaji;
                 }
-                SlipGaji slipGajiNoLembur = new SlipGaji();
-                slipGajiNoLembur.KaryawanID = cetakSlipGaji.KaryawanID;
-                slipGajiNoLembur.NamaKaryawan = dataKaryawan.NamaLengkap;
-                slipGajiNoLembur.Tahun = cetakSlipGaji.Tahun;
-                slipGajiNoLembur.Bulan = cetakSlipGaji.Bulan;
-                slipGajiNoLembur.GajiPokok = gajiPokok;
-                slipGajiNoLembur.Tunjangan = tunjangan;
-                double totalGajiTanpaLembur = gajiPokok + tunjangan;
-                slipGajiNoLembur.TotalGaji = totalGajiTanpaLembur;
-                return slipGajiNoLembur;
+                else
+                {
+                    SlipGaji slipGajiNoLembur = new SlipGaji();
+                    slipGajiNoLembur.KaryawanID = cetakSlipGaji.KaryawanID;
+                    slipGajiNoLembur.NamaKaryawan = dataKaryawan.NamaLengkap;
+                    slipGajiNoLembur.Tahun = cetakSlipGaji.Tahun;
+                    slipGajiNoLembur.Bulan = cetakSlipGaji.Bulan;
+                    slipGajiNoLembur.GajiPokok = gajiPokok;
+                    slipGajiNoLembur.Tunjangan = tunjangan;
+                    double totalGajiTanpaLembur = gajiPokok + tunjangan;
+                    slipGajiNoLembur.TotalGaji = totalGajiTanpaLembur;
+                    return slipGajiNoLembur;
+                }
             }
-            else
-            {
-                return null;
-            }
+            return null;
+
         }
 
         public void isiTabelGaji()
         {
+            /*
             var tanggal = myContext.Lembur
                 .GroupBy(x => new { x.Tanggal.Month, x.Tanggal.Year })
                  .Select(x =>
@@ -150,10 +152,30 @@ namespace API.Repositories.Data
                     Post(cetakBaru);
                 }
             }
+            */
+
+            var karyawan = myContext.Karyawan.ToList();
+            var tanggal_sekarang = DateTime.Now.Date;
+
+            foreach (var k in karyawan)
+            {
+                var tanggal_masuk = myContext.Karyawan.Find(k.ID).Tanggal_Masuk;
+                for (DateTime date = tanggal_masuk; date.Date <= tanggal_sekarang; date = date.AddMonths(1))
+                {
+                    CetakSlipGaji cetakBaru = new CetakSlipGaji();
+                    cetakBaru.KaryawanID = k.ID;
+                    cetakBaru.Bulan = date.Month;
+                    cetakBaru.Tahun = date.Year;
+                    Post(cetakBaru);
+                }
+            }
+
+
         }
 
         public List<SlipGaji> Get()
         {
+            isiTabelGaji();
             var karyawan = myContext.Karyawan.ToList();
             var gaji = myContext.Gaji.ToList();
 
@@ -180,6 +202,7 @@ namespace API.Repositories.Data
 
         public List<SlipGaji> Get(int idKaryawan)
         {
+            isiTabelGaji();
             var gaji = myContext.Gaji.ToList();
 
             List<SlipGaji> listSlip = new List<SlipGaji>();

@@ -3,13 +3,103 @@ let myChart;
 //console.log(Id);
 
 //chartJS
+function getRandomColorHex() {
+    var hex = "0123456789ABCDEF",
+        color = "#";
+    for (var i = 1; i <= 6; i++) {
+        color += hex[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function chartKaryawan() {
+    $.ajax({
+        url: "https://localhost:44372/api/Karyawan",
+        type: "GET",
+    }).done((result) => {
+        let dataGender = [];
+        for (var i = 0; i < 2; i++) {
+            let count = result.data.filter(x => x.gender == i).length;
+            dataGender.push(count);
+        }
+
+        const dataChartGender = {
+            labels: ['Laki-laki', 'Perempuan'],
+            datasets:
+                [
+                    {
+                        label: 'Dataset 1',
+                        data: dataGender,
+                        backgroundColor: ['rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)'],
+                        hoverOffset: 4
+                    }
+                ]
+        };
+
+        const configChartGender = {
+            type: 'doughnut',
+            data: dataChartGender,
+        }
+
+        let genderChart = new Chart(
+            document.getElementById("genderChart"),
+            configChartGender
+        );
+
+        let dataUsia = new Array(3).fill(0);
+        
+        for (var i = 0; i < result.data.length; i++) {
+            let age = Date.now() - new Date(result.data[i].tanggal_Lahir);
+            age = Math.floor(age / 1000 / 60 / 60 / 24 / 365); // convert to years
+            if (age < 25) {
+                dataUsia[0]++;
+            } else if (age >= 25 && age <= 45) {
+                dataUsia[1]++;
+            } else if (age > 45) {
+                dataUsia[2]++;
+            }
+        }
+
+        const dataChartUsia = {
+            labels: ['Usia < 25', '25 ≤ Usia ≤ 45', 'Usia > 45'],
+            datasets:
+                [
+                    {
+                        label: 'Dataset 1',
+                        data: dataUsia,
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'],
+                        hoverOffset: 4
+                    }
+                ]
+        };
+
+        const configChartUsia = {
+            type: 'doughnut',
+            data: dataChartUsia,
+        }
+
+        let usiaChart = new Chart(
+            document.getElementById("umurChart"),
+            configChartUsia
+        );
+
+    }).fail((error) => {
+        console.log(error);
+    });
+}
+
 function chartLembur(bulan, tahun) {
+
     $.ajax({
         url: "https://localhost:44372/api/Lembur",
         type: "GET",
     })
         .done((result) => {
-            
+
             let dataLembur = result.data.filter(
                 (x) =>
                     x.approval == "Approved" &&
@@ -24,7 +114,7 @@ function chartLembur(bulan, tahun) {
                     text: 'Please check your input again!',
                 });
             }
-            
+
             const labels = {};
             let totalLembur = [];
             $.each(dataLembur, function (index, element) {
@@ -42,6 +132,12 @@ function chartLembur(bulan, tahun) {
             });
             totalLembur = totalLembur.sort((a, b) => { return b.total - a.total });
             //console.log(totalLembur);
+
+            let bgColor = [];
+            for (var i = 0; i < totalLembur.length; i++) {
+                bgColor.push(getRandomColorHex());
+            }
+            console.log(bgColor);
             const config = {
                 type: "bar",
                 data: {
@@ -49,8 +145,11 @@ function chartLembur(bulan, tahun) {
                         {
                             data: totalLembur,
                             label: "Total Durasi Lembur (Jam)",
-                            backgroundColor: "rgb(37, 117, 218 )",
+                            backgroundColor: bgColor,
+                            //backgroundColor: "rgb(37, 117, 218 )",
                             barThickness: 30,
+                            borderColor: 'rgba(0,0,0,1)',
+                            borderWidth: 0.5,
                         },
                     ],
                 },
@@ -93,9 +192,10 @@ $(document).ready(function () {
 
     loadTable('1');
     loadTable('2');
-    chartLembur('10', '2022')
+    chartLembur('10', '2022');
+    chartKaryawan();
 
-    
+
     //$("#lemburTable2")[0].style.width = '100%';
     //$("#lemburTable1")[0].style.width = '100%';
 });
@@ -264,11 +364,16 @@ function Registrasi() {
         didOpen: () => {
             Swal.showLoading();
             var obj = new Object();
+            var gender = ($('input[name="registrasiGender"]:checked').val() === '1');
             obj.namaLengkap = $("#registrasiNama").val();
             obj.email = $("#registrasiEmail").val();
             obj.nomerRekening = $("#registrasiNoRekening").val();
             obj.nomerTelepon = $("#registrasiNoTelepon").val();
             obj.jabatanID = parseInt($("#registrasiJabatan").val());
+            obj.gender = gender;
+            obj.tanggal_Lahir = $("#registrasiTanggalLahir").val();
+            obj.tanggal_Masuk = $("#registrasiTanggalMasuk").val();
+            //console.log($("#registrasiTanggalMasuk").val())
             $.ajax({
                 contentType: "application/json",
                 url: "https://localhost:44372/api/Account/Register/",
@@ -299,6 +404,7 @@ function CetakSlipGaji() {
         allowOutsideClick: false,
         didOpen: () => {
             Swal.showLoading();
+
             const id = $("#cetakId").val();
             const tanggal = $("#cetakBulanTahun").val().split("-");
 
@@ -368,4 +474,21 @@ $.ajax({
     //$('#cetakId').val(parseInt(Id));
 }).fail((error) => {
     console.log(error);
+
 })
+
+function cetak() {
+    let divContents = document.getElementById("slipGajiModal").children[0].children[0].innerHTML;
+    let headContent = document.getElementsByTagName("head")[0].innerHTML;
+    let a = window.open('', '', 'height=842, width=595');
+    a.document.write('<html>');
+    a.document.write(`<head> ${headContent} </head>`);
+    a.document.write('<body style="height: 842px;width: 595px;"> ');
+    a.document.write(divContents);
+    a.document.write('</body></html>');
+    a.document.getElementsByClassName("close")[0].remove();
+    a.document.getElementsByClassName("main-btn")[0].value = 'Overtime Management System 2022';
+    a.document.close();
+    a.print();
+}
+

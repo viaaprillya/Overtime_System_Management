@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Karyawan";
+    Layout = "_KaryawanLayout";
+}
+
+<h1>Data Lembur Tahun 2022</h1>
+
+<div class="card shadow mb-4">
+    <canvas width="600" height="200" id="myChart"></canvas>
+</div>
+
+<input type="hidden" value="@ViewBag.Id" id="UserId" />
+@section Scripts {
+    <script src="~/js/karyawan/index.js"></script>
+    <script src="~/js/karyawan/historyGaji.js"></script>
+}

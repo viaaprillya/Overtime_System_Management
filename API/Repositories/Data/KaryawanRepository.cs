@@ -46,6 +46,9 @@ namespace API.Repositories.Data
             data.NomerRekening = karyawan.NomerRekening;
             data.NomerTelepon = karyawan.NomerTelepon;
             data.JabatanID = karyawan.JabatanID;
+            data.Tanggal_Masuk = karyawan.Tanggal_Masuk;
+            data.Tanggal_Lahir = karyawan.Tanggal_Lahir;
+            data.Gender = karyawan.Gender;
             myContext.Karyawan.Update(data);
             var result = myContext.SaveChanges();
             return result;
