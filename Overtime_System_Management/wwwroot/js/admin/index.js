@@ -1,9 +1,4 @@
-﻿const Id = document.getElementById('UserId').value;
-let myChart;
-//console.log(Id);
-
-//chartJS
-function chartLembur(bulan, tahun) {
+﻿function chartLembur(bulan, tahun) {
     $.ajax({
         url: "https://localhost:44372/api/Lembur",
         //url: "https://localhost:17828/api/Lembur",
@@ -269,11 +264,16 @@ function Registrasi() {
         didOpen: () => {
             Swal.showLoading();
             var obj = new Object();
+            var gender = ($('input[name="registrasiGender"]:checked').val() === '1');
             obj.namaLengkap = $("#registrasiNama").val();
             obj.email = $("#registrasiEmail").val();
             obj.nomerRekening = $("#registrasiNoRekening").val();
             obj.nomerTelepon = $("#registrasiNoTelepon").val();
             obj.jabatanID = parseInt($("#registrasiJabatan").val());
+            obj.gender = gender;
+            obj.tanggal_Lahir = $("#registrasiTanggalLahir").val();
+            obj.tanggal_Masuk = $("#registrasiTanggalMasuk").val();
+            //console.log($("#registrasiTanggalMasuk").val())
             $.ajax({
                 contentType: "application/json",
                 url: "https://localhost:44372/api/Account/Register/",
@@ -305,9 +305,10 @@ function CetakSlipGaji() {
         allowOutsideClick: false,
         didOpen: () => {
             Swal.showLoading();
+            
             const id = $("#cetakId").val();
             const tanggal = $("#cetakBulanTahun").val().split("-");
-
+            
             $.ajax({
                 url: `https://localhost:44372/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
                 //url: `https://localhost:17828/api/Gaji/CetakSlipGaji?KaryawanID=${id}&Bulan=${tanggal[1]}&Tahun=${tanggal[0]}`,
@@ -377,4 +378,4 @@ $.ajax({
     //$('#cetakId').val(parseInt(Id));
 }).fail((error) => {
     console.log(error);
-})
+});
