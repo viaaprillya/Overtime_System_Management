@@ -26,3 +26,16 @@ Silahkan download template [SB Admin 2](https://startbootstrap.com/theme/sb-admi
 2. Jika belum membuat user sama sekali
   - Sebaiknya gunakan API registrasi agar user secara default dapat login menggunakan password yang nilainya sama dengan nomor telepon
   - Kemudian jika ingin menjadikan role menjadi admin dapat diubah secara manual melalui table UserRole
+  
+#### Saran setelah presentasi
+  - Tambahkan timesheet saat melakukan request lembur (ex: 19.00-20.00 = "....", 20.00-21.00 = "....")
+  - Tentukan batasan jam mulai lembur
+  - Pending button jangan disatukan dengan proses approve lembur
+  - Batasan lembur per hari, per minggu dan per bulan
+  - Perhitungan upah lembur sebaiknya jangan di hardcode, buat table dalam database apabila ada kemungkinan perhitungan berubah
+  - Chart diberi label agar mudah dibaca
+  - Warna button diubah (pakai icon?)
+  - Filter tanggal pengajuan lembur
+  
+  
+  
