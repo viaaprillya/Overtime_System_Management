@@ -3,10 +3,39 @@
     Layout = "_KaryawanLayout";
 }
 
+<h1>Data Karyawan</h1>
+<div class="card shadow mb-4">
+    <div class="row m-lg-5">
+        <div class="col-2 align-left">
+            <p>Nama</p>
+            <p>Gender</p>
+            <p>Tanggal Lahir</p>
+            <p>E-mail</p>
+            <p>Nomer Rekening</p>
+            <p>Nomer Telepon</p>
+            <p>Jabatan</p>
+            <p>Tanggal Masuk</p>
+        </div>
+        <div class="col-1 text-right">
+            <p>:</p>
+            <p>:</p>
+            <p>:</p>
+            <p>:</p>
+            <p>:</p>
+            <p>:</p>
+            <p>:</p>
+            <p>:</p>
+        </div>
+        <div id="dataKaryawan" class="col-9 align-left">
+
+        </div>
+    </div>
+</div>
+
 <h1>Data Lembur Tahun 2022</h1>
 
-<div class="card shadow mb-4">
-    <canvas width="600" height="200" id="myChart"></canvas>
+<div class="card shadow">
+    <canvas class="m-lg-5"width="600" height="200" id="myChart"></canvas>
 </div>
 
 <input type="hidden" value="@ViewBag.Id" id="UserId" />

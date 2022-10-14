@@ -87,15 +87,18 @@ namespace API.Repositories.Data
                         x.Karyawan.ID.Equals(cetakSlipGaji.KaryawanID) &&
                         x.Tanggal.Month == cetakSlipGaji.Bulan &&
                         x.Tanggal.Year == cetakSlipGaji.Tahun
+                        && x.Approval == "Approved"
                         )
                         .GroupBy(x => x.KaryawanID)
                         .Select(x => new { totalLembur = x.Sum(x => x.Durasi) }).FirstOrDefault();
 
                     var lembur = dataLembur.totalLembur;
+                    double persenUpah = (double)1 /173;
 
 
-                    /* Upah Lembur tiap Jam = 0,5% dari Gaji */
-                    double totalLembur = (double)lembur * (0.005 * (double)gajiPokok);
+                    /* Upah Lembur tiap Jam = 1/173 dari Gaji rate 1,5 kali untuk 1 jam pertama & rate 2 kali untuk jam berikutnya */
+                    double totalLembur = (1.5 * persenUpah * (double)gajiPokok) + ((lembur - 1) * (2 * persenUpah * (double)gajiPokok));
+                    //double totalLembur = (double)lembur * (persenUpah * (double)gajiPokok);
 
                     SlipGaji slipGaji = new SlipGaji();
                     slipGaji.KaryawanID = cetakSlipGaji.KaryawanID;

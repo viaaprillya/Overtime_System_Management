@@ -130,6 +130,33 @@ $(document).ready(function () {
         .fail((error) => {
             console.log(error);
         });
+
+    $.ajax({
+        url: `https://localhost:44372/api/Karyawan/id?id=${Id}`,
+        type: "GET",
+    })
+        .done((result) => {
+            let karyawan = result.data;
+            let gender = (karyawan.gender === 'true') ? 'Female' : 'Male';
+            let tm = new Date(karyawan.tanggal_Masuk)
+            let tl = new Date(karyawan.tanggal_Lahir)
+            let tanggal_masuk = tm.toLocaleDateString("id-ID")
+            let tanggal_lahir = tl.toLocaleDateString("id-ID")
+            let dataKaryawan = `<p>${karyawan.namaLengkap}</p>
+            <p>${gender}</p>
+            <p>${tanggal_lahir}</p>
+            <p>${karyawan.email}</p>
+            <p>${karyawan.nomerRekening}</p>
+            <p>${karyawan.nomerTelepon}</p>
+            <p>${karyawan.jabatan.namaJabatan}</p>
+            <p>${tanggal_masuk}</p>`;
+
+            $("#dataKaryawan").html(dataKaryawan);
+        })
+        .fail((error) => {
+            console.log(error);
+        });
+
 });
 
 function Insert(event, karyawanId) {
@@ -272,3 +299,5 @@ function deletedLembur(opt) {
         });
     }
 }
+
+
