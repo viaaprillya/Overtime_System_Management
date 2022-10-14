@@ -1,4 +1,6 @@
-﻿namespace Overtime_System_Management.ViewModel
+﻿using System;
+
+namespace Overtime_System_Management.ViewModel
 {
     public class ResponseLogin
     {
@@ -7,5 +9,6 @@
 
         public string Email { get; set; }
         public string Role { get; set; }
+        public Boolean Gender { get; set; }
     }
 }

@@ -357,47 +357,6 @@ function Approve(opt) {
     })
 }
 
-function Registrasi() {
-    event.preventDefault();
-    Swal.fire({
-        allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading();
-            var obj = new Object();
-            var gender = ($('input[name="registrasiGender"]:checked').val() === '1');
-            obj.namaLengkap = $("#registrasiNama").val();
-            obj.email = $("#registrasiEmail").val();
-            obj.nomerRekening = $("#registrasiNoRekening").val();
-            obj.nomerTelepon = $("#registrasiNoTelepon").val();
-            obj.jabatanID = parseInt($("#registrasiJabatan").val());
-            obj.gender = gender;
-            obj.tanggal_Lahir = $("#registrasiTanggalLahir").val();
-            obj.tanggal_Masuk = $("#registrasiTanggalMasuk").val();
-            //console.log($("#registrasiTanggalMasuk").val())
-            $.ajax({
-                contentType: "application/json",
-                url: "https://localhost:44372/api/Account/Register/",
-                type: "POST",
-                data: JSON.stringify(obj)
-            }).done((result) => {
-                Swal.close();
-                Swal.fire({
-                    allowOutsideClick: false,
-                    title: 'User Registered',
-                    text: `Employee with name ${obj.namaLengkap} has been successfully registered!`,
-                    icon: 'success'
-                });
-                $('#registrasiFormModal').modal('hide');
-                $('#registrasiFormModal').on('hidden.bs.modal', function () {
-                    $(this).find('form').trigger('reset');
-                });
-            }).fail((error) => {
-                console.log(error);
-            });
-        }
-    });
-}
-
 function CetakSlipGaji() {
     event.preventDefault();
     Swal.fire({
@@ -444,20 +403,6 @@ function CetakSlipGaji() {
         }
     });
 }
-
-$.ajax({
-    url: "https://localhost:44372/api/Jabatan"
-}).done((result) => {
-    //console.log(result);
-    test = "";
-    $.each(result.data, function (key, val) {
-        test += `<option value="${key + 1}">${val.namaJabatan}</option>`;
-    });
-    //console.log(test);
-    $("#registrasiJabatan").html(test);
-}).fail((error) => {
-    console.log(error);
-});
 
 $.ajax({
     url: "https://localhost:44372/api/Karyawan"

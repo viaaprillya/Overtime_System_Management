@@ -52,6 +52,7 @@ namespace Overtime_System_Management.Controllers
                 HttpContext.Session.SetString("FullName", data.data.FullName);
                 HttpContext.Session.SetString("Id", data.data.Id.ToString());
                 HttpContext.Session.SetString("Email", data.data.Email);
+                HttpContext.Session.SetString("Gender", data.data.Gender == true ? "True" : "False");
                 if (data.data.Role == "User")
                 {
                     return RedirectToAction("Dashboard", "Karyawan");
@@ -83,9 +84,12 @@ namespace Overtime_System_Management.Controllers
                 //}
                 var fullName = HttpContext.Session.GetString("FullName");
                 var email = HttpContext.Session.GetString("Email");
+                var gender = HttpContext.Session.GetString("Gender");
                 ViewBag.FullName = fullName;
                 ViewBag.Email = email;
                 ViewBag.Role = role;
+                ViewBag.Gender = gender;
+
                 return View();
             }
             TempData["Unauthorized"] = "true";
@@ -107,9 +111,11 @@ namespace Overtime_System_Management.Controllers
             var fullName = HttpContext.Session.GetString("FullName");
             var email = HttpContext.Session.GetString("Email");
             var role = HttpContext.Session.GetString("Role");
+            var gender = HttpContext.Session.GetString("Gender");
             ViewBag.FullName = fullName;
             ViewBag.Email = email;
             ViewBag.Role = role;
+            ViewBag.Gender = gender;
             if (result.IsSuccessStatusCode)
             {
                 ViewBag.Success = "true";

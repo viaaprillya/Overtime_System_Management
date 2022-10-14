@@ -57,7 +57,7 @@
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider" />
+            <hr class="sidebar-divider" my-0 />
 
             <!-- Heading -->
             <li class="nav-item active">
@@ -123,8 +123,14 @@
                                aria-haspopup="true"
                                aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">@ViewBag.FullName</span>
-                                <img class="img-profile rounded-circle"
-                                     src="~/sbadmin/img/undraw_profile.svg" />
+                                @if(ViewBag.Gender == "True")
+                                {
+                                     <img class="img-profile rounded-circle"
+                                     src="~/sbadmin/img/undraw_profile_1.svg" />
+                                }else if (ViewBag.Gender == "False"){
+                                    <img class="img-profile rounded-circle"
+                                     src="~/sbadmin/img/undraw_profile_2.svg" />
+                                }
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -158,7 +164,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Overtime Request System 2022</span>
+                        <span>Copyright &copy; Overtime Management System 2022</span>
                     </div>
                 </div>
             </footer>
